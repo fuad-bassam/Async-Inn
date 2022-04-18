@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Async-Inn", "Async-Inn\Async-Inn.csproj", "{D420561E-BE1D-43F8-998C-B3EDBD4DDC2D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A58DF67A-D735-4E67-93E0-42A5650A4D75}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Async-Inn-app", "Async-Inn-app\Async-Inn-app.csproj", "{13801A9A-9C17-4FA4-876B-13AD75F884B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +16,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D420561E-BE1D-43F8-998C-B3EDBD4DDC2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D420561E-BE1D-43F8-998C-B3EDBD4DDC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D420561E-BE1D-43F8-998C-B3EDBD4DDC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D420561E-BE1D-43F8-998C-B3EDBD4DDC2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13801A9A-9C17-4FA4-876B-13AD75F884B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13801A9A-9C17-4FA4-876B-13AD75F884B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13801A9A-9C17-4FA4-876B-13AD75F884B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13801A9A-9C17-4FA4-876B-13AD75F884B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
