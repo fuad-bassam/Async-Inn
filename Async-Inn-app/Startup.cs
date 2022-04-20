@@ -1,4 +1,6 @@
 using Async_Inn_app.data;
+using Async_Inn_app.models.Interfaces;
+using Async_Inn_app.models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,13 +31,19 @@ namespace Async_Inn_app
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+           
 
             services.AddDbContext<AsyncInnDbContext>(options => {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+            services.AddScoped < IHotelBranches, HotelBranchesService>();
+
+            services.AddScoped<IAmenities, AmenitiesService>();
+
+            services.AddScoped<IRooms, RoomsServices>();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,9 +64,10 @@ namespace Async_Inn_app
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
-                endpoints.MapGet("hey", async context =>
+
+                endpoints.MapGet("/hey", async context =>
                 {
-                    throw new InvalidOperationException("booyah");
+                     throw new InvalidOperationException("booyah");
                 });
 
             });
