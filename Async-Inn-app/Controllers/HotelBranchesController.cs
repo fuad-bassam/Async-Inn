@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Async_Inn_app.data;
 using Async_Inn_app.models;
+using Async_Inn_app.models.Interfaces;
 
 namespace Async_Inn_app.Controllers
 {
@@ -14,32 +15,27 @@ namespace Async_Inn_app.Controllers
     [ApiController]
     public class HotelBranchesController : ControllerBase
     {
-        private readonly AsyncInnDbContext _context;
+        private readonly IHotelBranches _hotel;
 
-        public HotelBranchesController(AsyncInnDbContext context)
+        public HotelBranchesController(IHotelBranches hotel)
         {
-            _context = context;
+            _hotel = hotel;
         }
 
         // GET: api/HotelBranches
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelBranches>>> GetHotelBranches()
         {
-            return await _context.HotelBranches.ToListAsync();
+            var hotels = await _hotel.GetHotels();
+            return Ok(hotels);
         }
 
         // GET: api/HotelBranches/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HotelBranches>> GetHotelBranches(int id)
         {
-            var hotelBranches = await _context.HotelBranches.FindAsync(id);
-
-            if (hotelBranches == null)
-            {
-                return NotFound();
-            }
-
-            return hotelBranches;
+            HotelBranches hotel = await _hotel.GetHotel(id);
+            return Ok(hotel);
         }
 
         // PUT: api/HotelBranches/5
@@ -52,25 +48,8 @@ namespace Async_Inn_app.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(hotelBranches).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelBranchesExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            HotelBranches hotel = await _hotel.UpdateHotel(id,hotelBranches);
+            return Ok(hotel);
         }
 
         // POST: api/HotelBranches
@@ -78,31 +57,26 @@ namespace Async_Inn_app.Controllers
         [HttpPost]
         public async Task<ActionResult<HotelBranches>> PostHotelBranches(HotelBranches hotelBranches)
         {
-            _context.HotelBranches.Add(hotelBranches);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetHotelBranches", new { id = hotelBranches.hotelId }, hotelBranches);
+            HotelBranches hotel = await _hotel.Create(hotelBranches);
+            return Ok(hotel);
         }
 
         // DELETE: api/HotelBranches/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotelBranches(int id)
         {
-            var hotelBranches = await _context.HotelBranches.FindAsync(id);
+            var hotelBranches = await _hotel.GetHotel(id);
             if (hotelBranches == null)
             {
                 return NotFound();
             }
 
-            _context.HotelBranches.Remove(hotelBranches);
-            await _context.SaveChangesAsync();
 
-            return NoContent();
+            await _hotel.Delete(id);
+           return NoContent();
+
         }
 
-        private bool HotelBranchesExists(int id)
-        {
-            return _context.HotelBranches.Any(e => e.hotelId == id);
-        }
+        
     }
 }

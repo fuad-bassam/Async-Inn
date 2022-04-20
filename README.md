@@ -2,7 +2,7 @@
 
 **By Fuad Abuawad**
 
-**Date : 13/4/2022**
+**Date : 20/4/2022**
 
 ![img](./image/ERD_Hotel.png)
 
