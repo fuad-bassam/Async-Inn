@@ -14,5 +14,8 @@ namespace Async_Inn_app.models.Interfaces
         Task<HotelBranches> GetHotel(int id);
         Task<HotelBranches> UpdateHotel(int id, HotelBranches hotelBranches);
         Task Delete(int id);
+
+
+
     }
 }

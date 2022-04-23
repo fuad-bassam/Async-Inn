@@ -9,8 +9,8 @@ namespace Async_Inn_app.models
 {
     public class Rooms
     {
-        [Key]
-        public int hotelIdRoomId { get; set; }
+      
+       
 
         [Required]
         public int roomId { get; set; }
@@ -22,21 +22,24 @@ namespace Async_Inn_app.models
 
         public decimal price { get; set; }
 
-
+        public int hotelId { get; set; }
+        public virtual HotelBranches HotelBranches { get; set; }
+        public int visitorId { get; set; }
         public List<RoomsAmenities> roomsAmenities { get; set; }
 
-
+       
         //[Display(Name = "HotelBranches")]
 
-        [ForeignKey("hotelId")]
-        public int hotelId { get; set; }
-
-        public virtual HotelBranches HotelBranches { get; set; }
-
+        // [ForeignKey("hotelId")]
 
         //  public int hotelId { get; set; }
 
-        public int visitorId { get; set; }
+
+     
+
+
+
+ 
 
     }
 }

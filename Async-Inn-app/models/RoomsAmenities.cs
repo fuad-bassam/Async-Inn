@@ -11,9 +11,9 @@ namespace Async_Inn_app.models
         //[ForeignKey("roomId")]
         //public int roomId { get; set; }
 
-        //public int roomId { get; set; }
+        public int hotelIdRoomId { get; set; }
 
-        //public int featureId { get; set; }
+        public int amenitiesId { get; set; }
 
 
         public Rooms rooms { get; set; }
