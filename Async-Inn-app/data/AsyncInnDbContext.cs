@@ -58,13 +58,14 @@ namespace Async_Inn_app.data
 
              });
 
-            modelBuilder.Entity<HotelBranches>().HasData(
-              new HotelBranches { hotelId = 1, name = "Downtown Branch", city = "jordan", state = "amman", address = "Downtoun-ALsame street ", phoneNum = "00963323423212", roomsNum = 30 },
+           // modelBuilder.Entity<HotelBranches>().HasData(
+           //   new HotelBranches { hotelId = 1, name = "Downtown Branch", city = "jordan", state = "amman", address = "Downtoun-ALsame street ", phoneNum = "00963323423212", roomsNum = 30 },
 
-              new HotelBranches { hotelId = 2, name = "Zarqa Branch", city = "jordan", state = "Zarqa", address = " ali street", phoneNum = "00962790941468", roomsNum = 40 },
+           //   new HotelBranches { hotelId = 2, name = "Zarqa Branch", city = "jordan", state = "Zarqa", address = " ali street", phoneNum = "00962790941468", roomsNum = 40 },
 
-              new HotelBranches { hotelId = 13, name = "Karak Branch", city = "jordan", state = "Karak", address = "AL-waseh street", phoneNum = "00962301520123", roomsNum = 90 }
-            );
+           //   new HotelBranches { hotelId = 13, name = "Karak Branch", city = "jordan", state = "Karak", address = "AL-waseh street", phoneNum = "00962301520123", roomsNum = 90 }
+           // );
+
 
             modelBuilder.Entity<Rooms>().HasData(
              new Rooms { hotelId = 1, roomId = 101, nickName = "Restful Rainier", space = 2, price = 29.9m },
@@ -74,12 +75,14 @@ namespace Async_Inn_app.data
            );
 
 
-            modelBuilder.Entity<Amenities>().HasData(
-             new Amenities { amenitiesId = 11, name = "coffee maker", description = "have a coffee maker with unlimited drink amounts from machine choices.", price = 25 },
-             new Amenities { amenitiesId = 21, name = "ocean view", description = "have a view from the window on the ocean.", price = 35 },
-             new Amenities { amenitiesId = 31, name = "mini bar", description = "Have a mini bar in your rome with a discount of 25% on drinks from it.", price = 40 }
 
-           );
+           // modelBuilder.Entity<Amenities>().HasData(
+           //  new Amenities { amenitiesId = 11, name = "coffee maker", description = "have a coffee maker with unlimited drink amounts from machine choices.", price = 25 },
+           //  new Amenities { amenitiesId = 21, name = "ocean view", description = "have a view from the window on the ocean.", price = 35 },
+           //  new Amenities { amenitiesId = 31, name = "mini bar", description = "Have a mini bar in your rome with a discount of 25% on drinks from it.", price = 40 }
+
+           //);
+
 
 
              modelBuilder.Entity<RoomsAmenities>().HasData(
@@ -90,7 +93,6 @@ namespace Async_Inn_app.data
 
           
 
-           );
         }
 
     }

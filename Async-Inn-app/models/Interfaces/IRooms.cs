@@ -10,8 +10,10 @@ namespace Async_Inn_app.models.Interfaces
 
          Task<Rooms> Create(Rooms rooms);
         Task<List<Rooms>> GetRooms();
+
         Task<Rooms> GetRoom(int hotelId, int roomId);
         Task<Rooms> UpdateRoom(int hotelId, int roomId, Rooms rooms);
         Task Delete(int hotelId, int roomId);
+
     }
 }

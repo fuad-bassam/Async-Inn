@@ -15,6 +15,7 @@ namespace Async_Inn_app.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
+
         private readonly IRooms _rooms;
         public RoomsController(IRooms rooms)
         {
@@ -33,7 +34,9 @@ namespace Async_Inn_app.Controllers
         [HttpGet("{hotelId}/{roomId}")]
         public async Task<ActionResult<Rooms>> GetRooms(int hotelId, int roomId)
         {
+
             Rooms room = await _rooms.GetRoom(hotelId,roomId);
+
             return Ok(room);
         }
 
@@ -43,8 +46,8 @@ namespace Async_Inn_app.Controllers
         public async Task<IActionResult> PutRooms(int hotelId, int roomId, Rooms rooms)
         {
 
-
             Rooms room = await _rooms.UpdateRoom( hotelId, roomId, rooms);
+
             return Ok(room);
         }
 
@@ -61,11 +64,14 @@ namespace Async_Inn_app.Controllers
         [HttpDelete("{hotelId}/{roomId}")]
         public async Task<IActionResult> DeleteRooms(int hotelId, int roomId)
         {
+
             var rooms = await _rooms.GetRoom(hotelId, roomId);
+
             if (rooms == null)
             {
                 return NotFound();
             }
+
 
 
             await _rooms.Delete(hotelId,roomId);

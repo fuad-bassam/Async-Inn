@@ -17,6 +17,23 @@ namespace Async_Inn_app.models.Services
             _context = context;
         }
 
+     
+
+        public async Task<Amenities> GetAmenitie(int id)
+        {
+            //Amenities amenities = await _context.Amenities.FindAsync(id);
+
+            //return amenities;
+            return await _context.Amenities.Include(x => x.roomsAmenities).ThenInclude(y => y.rooms).FirstOrDefaultAsync(z => z.amenitiesId == id);
+        }
+
+        public async Task<List<Amenities>> GetAmenities()
+        {
+            //var amenities = await _context.Amenities.ToListAsync();
+
+            //return amenities;
+            return await _context.Amenities.Include(x => x.roomsAmenities).ThenInclude(y => y.rooms).ToListAsync();
+        }
         public async Task<Amenities> Create(Amenities amenities)
         {
             _context.Entry(amenities).State = EntityState.Added;
@@ -37,21 +54,6 @@ namespace Async_Inn_app.models.Services
 
 
         }
-
-        public async Task<Amenities> GetAmenitie(int id)
-        {
-            Amenities amenities = await _context.Amenities.FindAsync(id);
-
-            return amenities;
-        }
-
-        public async Task<List<Amenities>> GetAmenities()
-        {
-            var amenities = await _context.Amenities.ToListAsync();
-
-            return amenities;
-        }
-
         public async Task<Amenities> UpdateAmenities(int id, Amenities amenities)
         {
             

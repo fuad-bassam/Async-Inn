@@ -17,7 +17,6 @@ namespace Async_Inn_app.models.Services
         {
             _context = context;
         }
-
         public async Task<HotelBranches> Create(HotelBranches hotelBranches)
         {
             _context.Entry(hotelBranches).State = EntityState.Added;
@@ -71,5 +70,8 @@ namespace Async_Inn_app.models.Services
 
             return hotelBranches;
         }
+      
+
+      
     }
 }

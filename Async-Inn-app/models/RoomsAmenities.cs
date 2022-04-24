@@ -8,6 +8,7 @@ namespace Async_Inn_app.models
 {
     public class RoomsAmenities
     {
+
         [ForeignKey("roomId")]
         public int roomId { get; set; }
         [ForeignKey("hotelId")]

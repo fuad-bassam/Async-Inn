@@ -17,6 +17,8 @@ namespace Async_Inn_app.models.Services
             _context = context;
         }
 
+     
+
         public async Task<Rooms> Create(Rooms rooms)
         {
             _context.Entry(rooms).State = EntityState.Added;
@@ -24,6 +26,7 @@ namespace Async_Inn_app.models.Services
             await _context.SaveChangesAsync();
             return rooms;
         }
+
 
         public async Task Delete(int hotelId, int roomId)
         {
@@ -38,21 +41,29 @@ namespace Async_Inn_app.models.Services
 
         }
 
+
         public async Task<Rooms> GetRoom(int hotelId, int roomId)
         {
+
             Rooms rooms = await _context.Rooms.FindAsync(hotelId,roomId);
 
-            return rooms;
+
+            //return rooms;
+
+            return await _context.Rooms.Include(a => a.roomsAmenities).ThenInclude(b => b.amenities).FirstOrDefaultAsync(c => c.hotelIdRoomId == id);
         }
 
         public async Task<List<Rooms>> GetRooms()
         {
-            var rooms = await _context.Rooms.ToListAsync();
+            //var rooms = await _context.Rooms.ToListAsync();
 
-            return rooms;
+            //return rooms;
+            return await _context.Rooms.Include(a => a.roomsAmenities).ThenInclude(b => b.amenities).ToListAsync();
         }
 
+
         public async Task<Rooms> UpdateRoom(int hotelId, int roomId, Rooms rooms)
+
         {
 
 
@@ -61,6 +72,40 @@ namespace Async_Inn_app.models.Services
             await _context.SaveChangesAsync();
 
             return rooms;
+        }
+
+        public async Task Delete(int id)
+        {
+            Rooms rooms = await GetRoom(id);
+            if (rooms != null)
+            {
+                _context.Entry(rooms).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
+
+
+        }
+
+
+        public async Task AddAmenityToRoom(int hotelIdRoomId, int amenityId)
+        {
+            RoomsAmenities roomsAmenities = new RoomsAmenities { hotelIdRoomId = hotelIdRoomId, amenitiesId = amenityId };
+
+            _context.Entry(roomsAmenities).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task RemoveAmentityFromRoom(int roomId, int amenityId)
+        {
+            RoomsAmenities roomsAmenities = await _context.RoomsAmenities.FindAsync();
+            if (roomsAmenities != null)
+            {
+                _context.Entry(roomsAmenities).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
         }
 
     }
