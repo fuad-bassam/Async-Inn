@@ -15,7 +15,10 @@ namespace Async_Inn_app.Controllers
     [ApiController]
     public class AmenitiesController : ControllerBase
     {
+
+
         private readonly IAmenities _amenities;
+
 
         public AmenitiesController(IAmenities amenities)
         {
@@ -78,6 +81,5 @@ namespace Async_Inn_app.Controllers
             return NoContent();
         }
 
-      
     }
 }

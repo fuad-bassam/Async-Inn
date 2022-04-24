@@ -8,18 +8,17 @@ namespace Async_Inn_app.models
 {
     public class RoomsAmenities
     {
-        //[ForeignKey("roomId")]
-        //public int roomId { get; set; }
 
-        public int hotelIdRoomId { get; set; }
+        [ForeignKey("roomId")]
+        public int roomId { get; set; }
+        [ForeignKey("hotelId")]
+        public int hotelId { get; set; }
 
         public int amenitiesId { get; set; }
 
-
-        public Rooms rooms { get; set; }
-
-        public Amenities amenities { get; set; }
-
         public bool canRemove { get; set; }
+        public virtual Rooms Rooms { get; set; }
+        public Amenities Amenities { get; set; }
+     
     }
 }

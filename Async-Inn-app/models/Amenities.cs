@@ -19,6 +19,8 @@ namespace Async_Inn_app.models
 
         public decimal price { get; set; }
 
-        public RoomsAmenities roomsAmenities { get; set; }
+
+        public List<RoomsAmenities> roomsAmenities { get; set; }
+
     }
 }

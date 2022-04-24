@@ -24,6 +24,7 @@ namespace Async_Inn_app.models
         public String phoneNum { get; set; }
 
         public int roomsNum { get; set; }
+        public List<Rooms> rooms { get; set; }
 
         public List<Rooms> rooms { get; set; }
         //public int empId { get; set; }

@@ -42,6 +42,21 @@ namespace Async_Inn_app.data
 
             // This calls the base method, but does nothing
             // base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Rooms>().HasKey
+                (x => new
+                {
+                    x.hotelId,
+                    x.roomId
+
+                });
+            modelBuilder.Entity<RoomsAmenities>().HasKey
+             (x => new
+             {
+                 x.hotelId,
+                 x.roomId,
+                 x.amenitiesId
+
+             });
 
            // modelBuilder.Entity<HotelBranches>().HasData(
            //   new HotelBranches { hotelId = 1, name = "Downtown Branch", city = "jordan", state = "amman", address = "Downtoun-ALsame street ", phoneNum = "00963323423212", roomsNum = 30 },
@@ -51,12 +66,14 @@ namespace Async_Inn_app.data
            //   new HotelBranches { hotelId = 13, name = "Karak Branch", city = "jordan", state = "Karak", address = "AL-waseh street", phoneNum = "00962301520123", roomsNum = 90 }
            // );
 
-           //// modelBuilder.Entity<Rooms>().HasData(
-           ////  new Rooms { hotelIdRoomId = 1101, roomId = 101, nickName = "Restful Rainier", space = 2, price = 29.9m },
-           ////  new Rooms { hotelIdRoomId = 1102, roomId = 102, nickName = "Seahawks Snooze", space = 2, price = 45 },
 
-           ////  new Rooms { hotelIdRoomId = 2101, roomId = 101, nickName = "Golden hat", space = 3, price = 75}
-           ////);
+            modelBuilder.Entity<Rooms>().HasData(
+             new Rooms { hotelId = 1, roomId = 101, nickName = "Restful Rainier", space = 2, price = 29.9m },
+             new Rooms { hotelId = 1, roomId = 102, nickName = "Seahawks Snooze", space = 2, price = 45 },
+
+             new Rooms { hotelId = 2, roomId = 101, nickName = "Golden hat", space = 3, price = 75 }
+           );
+
 
 
            // modelBuilder.Entity<Amenities>().HasData(
@@ -66,12 +83,16 @@ namespace Async_Inn_app.data
 
            //);
 
-            //modelBuilder.Entity<Rooms>().HasKey(
-            //    Rooms => new { Rooms.hotelId, Rooms.roomId }
-            //    );
-            //modelBuilder.Entity<RoomsAmenities>().HasKey(
-            //   x => new {x.hotelIdRoomId , x.amenitiesId }
-            //   );
+
+
+             modelBuilder.Entity<RoomsAmenities>().HasData(
+             new RoomsAmenities { amenitiesId = 11, hotelId = 1, roomId = 101,canRemove=true },
+             new RoomsAmenities { amenitiesId = 11, hotelId = 2, roomId = 101 },
+             new RoomsAmenities { amenitiesId = 21, hotelId = 1, roomId = 101 }
+        
+
+          
+
         }
 
     }

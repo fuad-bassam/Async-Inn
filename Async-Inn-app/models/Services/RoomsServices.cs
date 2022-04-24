@@ -27,11 +27,26 @@ namespace Async_Inn_app.models.Services
             return rooms;
         }
 
-   
 
-        public async Task<Rooms> GetRoom(int id)
+        public async Task Delete(int hotelId, int roomId)
         {
-            //Rooms rooms = await _context.Rooms.FindAsync(id);
+            Rooms rooms = await GetRoom(hotelId,roomId);
+            if (rooms != null)
+            {
+                _context.Entry(rooms).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
+
+
+        }
+
+
+        public async Task<Rooms> GetRoom(int hotelId, int roomId)
+        {
+
+            Rooms rooms = await _context.Rooms.FindAsync(hotelId,roomId);
+
 
             //return rooms;
 
@@ -47,7 +62,8 @@ namespace Async_Inn_app.models.Services
         }
 
 
-        public async Task<Rooms> UpdateRoom(int id, Rooms rooms)
+        public async Task<Rooms> UpdateRoom(int hotelId, int roomId, Rooms rooms)
+
         {
 
 

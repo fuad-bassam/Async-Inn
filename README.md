@@ -121,3 +121,13 @@ it is a entity joint table between Employees table and WorkTime table.
 
  
  
+
+## controllers 
+
+we have three controllers in our project
+
+- AmenitiesController
+- HotelBranchesController
+- RoomsController
+
+each controller have the CRUD operation for his interface (we use "Dependency Injection" to improve the code).

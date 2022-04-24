@@ -31,21 +31,23 @@ namespace Async_Inn_app.Controllers
         }
 
         // GET: api/Rooms/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Rooms>> GetRooms(int id)
+        [HttpGet("{hotelId}/{roomId}")]
+        public async Task<ActionResult<Rooms>> GetRooms(int hotelId, int roomId)
         {
-            Rooms room = await _rooms.GetRoom(id);
+
+            Rooms room = await _rooms.GetRoom(hotelId,roomId);
+
             return Ok(room);
         }
 
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRooms(int id, Rooms rooms)
+        [HttpPut("{hotelId}/{roomId}")]
+        public async Task<IActionResult> PutRooms(int hotelId, int roomId, Rooms rooms)
         {
-            
 
-            Rooms room = await _rooms.UpdateRoom(id, rooms);
+            Rooms room = await _rooms.UpdateRoom( hotelId, roomId, rooms);
+
             return Ok(room);
         }
 
@@ -59,40 +61,43 @@ namespace Async_Inn_app.Controllers
         }
 
         // DELETE: api/Rooms/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRooms(int id)
+        [HttpDelete("{hotelId}/{roomId}")]
+        public async Task<IActionResult> DeleteRooms(int hotelId, int roomId)
         {
-            var rooms = await _rooms.GetRoom(id);
+
+            var rooms = await _rooms.GetRoom(hotelId, roomId);
+
             if (rooms == null)
             {
                 return NotFound();
             }
 
 
-            await _rooms.Delete(id);
+
+            await _rooms.Delete(hotelId,roomId);
             return NoContent();
 
         }
 
 
 
-        // GET: api/Rooms/5/Amenity/3
-        [HttpPost("{roomId}/Amenity/{amenityId}")]
-        public async Task<ActionResult> addRoomsAmenities(int hotelIdRoomId, int amenityId)
-        {
-            await _rooms.AddAmenityToRoom(hotelIdRoomId,amenityId);
-            return NoContent();
-            
-        }
+        //// GET: api/Rooms/5/Amenity/3
+        //[HttpPost("{roomId}/Amenity/{amenityId}")]
+        //public async Task<ActionResult> addRoomsAmenities(int hotelIdRoomId, int amenityId)
+        //{
+        //    await _rooms.AddAmenityToRoom(hotelIdRoomId, amenityId);
+        //    return NoContent();
 
-        // GET: api/Rooms/5/Amenity/3
-        [HttpDelete("{roomId}/Amenity/{amenityId}")]
-        public async Task<ActionResult> deleteRoomsAmenities(int hotelIdRoomId, int amenityId)
-        {
+        //}
 
-            await _rooms.RemoveAmentityFromRoom(hotelIdRoomId , amenityId);
-            return NoContent();
+        //// GET: api/Rooms/5/Amenity/3
+        //[HttpDelete("{roomId}/Amenity/{amenityId}")]
+        //public async Task<ActionResult> deleteRoomsAmenities(int hotelIdRoomId, int amenityId)
+        //{
 
-        }
+        //    await _rooms.RemoveAmentityFromRoom(hotelIdRoomId, amenityId);
+        //    return NoContent();
+
+        //}
     }
 }

@@ -45,9 +45,11 @@ namespace Async_Inn_app
             services.AddScoped<IRooms, RoomsServices>();
             services.AddControllers().AddNewtonsoftJson(
 
-                x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 
-                );
+                 x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+
+                 );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
