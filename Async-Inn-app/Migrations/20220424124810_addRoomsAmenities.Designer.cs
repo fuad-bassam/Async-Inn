@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Async_Inn_app.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    [Migration("20220418085656_AddSeedData")]
-    partial class AddSeedData
+    [Migration("20220424124810_addRoomsAmenities")]
+    partial class addRoomsAmenities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -158,15 +158,10 @@ namespace Async_Inn_app.Migrations
 
             modelBuilder.Entity("Async_Inn_app.models.Rooms", b =>
                 {
-                    b.Property<int>("hotelIdRoomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("HotelBrancheshotelId")
+                    b.Property<int>("hotelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("hotelId")
+                    b.Property<int>("roomId")
                         .HasColumnType("int");
 
                     b.Property<string>("nickName")
@@ -175,52 +170,73 @@ namespace Async_Inn_app.Migrations
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("roomId")
-                        .HasColumnType("int");
-
                     b.Property<int>("space")
                         .HasColumnType("int");
 
                     b.Property<int>("visitorId")
                         .HasColumnType("int");
 
-                    b.HasKey("hotelIdRoomId");
-
-                    b.HasIndex("HotelBrancheshotelId");
+                    b.HasKey("hotelId", "roomId");
 
                     b.ToTable("Rooms");
 
                     b.HasData(
                         new
                         {
-                            hotelIdRoomId = 1101,
-                            hotelId = 0,
+                            hotelId = 1,
+                            roomId = 101,
                             nickName = "Restful Rainier",
                             price = 29.9m,
-                            roomId = 101,
                             space = 2,
                             visitorId = 0
                         },
                         new
                         {
-                            hotelIdRoomId = 1102,
-                            hotelId = 0,
+                            hotelId = 1,
+                            roomId = 102,
                             nickName = "Seahawks Snooze",
                             price = 45m,
-                            roomId = 102,
                             space = 2,
                             visitorId = 0
                         },
                         new
                         {
-                            hotelIdRoomId = 2101,
-                            hotelId = 0,
+                            hotelId = 2,
+                            roomId = 101,
                             nickName = "Golden hat",
                             price = 75m,
-                            roomId = 101,
                             space = 3,
                             visitorId = 0
                         });
+                });
+
+            modelBuilder.Entity("Async_Inn_app.models.RoomsAmenities", b =>
+                {
+                    b.Property<int>("hotelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("roomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("amenitiesId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RoomshotelId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RoomsroomId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("canRemove")
+                        .HasColumnType("bit");
+
+                    b.HasKey("hotelId", "roomId", "amenitiesId");
+
+                    b.HasIndex("amenitiesId");
+
+                    b.HasIndex("RoomshotelId", "RoomsroomId");
+
+                    b.ToTable("RoomsAmenities");
                 });
 
             modelBuilder.Entity("Async_Inn_app.models.Employees", b =>
@@ -236,9 +252,28 @@ namespace Async_Inn_app.Migrations
                 {
                     b.HasOne("Async_Inn_app.models.HotelBranches", "HotelBranches")
                         .WithMany()
-                        .HasForeignKey("HotelBrancheshotelId");
+                        .HasForeignKey("hotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("HotelBranches");
+                });
+
+            modelBuilder.Entity("Async_Inn_app.models.RoomsAmenities", b =>
+                {
+                    b.HasOne("Async_Inn_app.models.Amenities", "Amenities")
+                        .WithMany()
+                        .HasForeignKey("amenitiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Async_Inn_app.models.Rooms", "Rooms")
+                        .WithMany()
+                        .HasForeignKey("RoomshotelId", "RoomsroomId");
+
+                    b.Navigation("Amenities");
+
+                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

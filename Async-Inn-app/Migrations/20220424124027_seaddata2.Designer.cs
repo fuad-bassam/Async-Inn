@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Async_Inn_app.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    [Migration("20220418085156_Update-Migration1")]
-    partial class UpdateMigration1
+    [Migration("20220424124027_seaddata2")]
+    partial class seaddata2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,29 @@ namespace Async_Inn_app.Migrations
                     b.HasKey("amenitiesId");
 
                     b.ToTable("Amenities");
+
+                    b.HasData(
+                        new
+                        {
+                            amenitiesId = 11,
+                            description = "have a coffee maker with unlimited drink amounts from machine choices.",
+                            name = "coffee maker",
+                            price = 25m
+                        },
+                        new
+                        {
+                            amenitiesId = 21,
+                            description = "have a view from the window on the ocean.",
+                            name = "ocean view",
+                            price = 35m
+                        },
+                        new
+                        {
+                            amenitiesId = 31,
+                            description = "Have a mini bar in your rome with a discount of 25% on drinks from it.",
+                            name = "mini bar",
+                            price = 40m
+                        });
                 });
 
             modelBuilder.Entity("Async_Inn_app.models.Employees", b =>
@@ -99,19 +122,49 @@ namespace Async_Inn_app.Migrations
                     b.HasKey("hotelId");
 
                     b.ToTable("HotelBranches");
+
+                    b.HasData(
+                        new
+                        {
+                            hotelId = 1,
+                            address = "Downtoun-ALsame street ",
+                            city = "jordan",
+                            name = "Downtown Branch",
+                            phoneNum = "00963323423212",
+                            roomsNum = 30,
+                            state = "amman"
+                        },
+                        new
+                        {
+                            hotelId = 2,
+                            address = " ali street",
+                            city = "jordan",
+                            name = "Zarqa Branch",
+                            phoneNum = "00962790941468",
+                            roomsNum = 40,
+                            state = "Zarqa"
+                        },
+                        new
+                        {
+                            hotelId = 13,
+                            address = "AL-waseh street",
+                            city = "jordan",
+                            name = "Karak Branch",
+                            phoneNum = "00962301520123",
+                            roomsNum = 90,
+                            state = "Karak"
+                        });
                 });
 
             modelBuilder.Entity("Async_Inn_app.models.Rooms", b =>
                 {
-                    b.Property<int>("hotelIdRoomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("HotelBrancheshotelId")
+                    b.Property<int>("hotelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("hotelId")
+                    b.Property<int>("roomId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HotelBrancheshotelId")
                         .HasColumnType("int");
 
                     b.Property<string>("nickName")
@@ -120,20 +173,46 @@ namespace Async_Inn_app.Migrations
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("roomId")
-                        .HasColumnType("int");
-
                     b.Property<int>("space")
                         .HasColumnType("int");
 
                     b.Property<int>("visitorId")
                         .HasColumnType("int");
 
-                    b.HasKey("hotelIdRoomId");
+                    b.HasKey("hotelId", "roomId");
 
                     b.HasIndex("HotelBrancheshotelId");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            hotelId = 1,
+                            roomId = 101,
+                            nickName = "Restful Rainier",
+                            price = 29.9m,
+                            space = 2,
+                            visitorId = 0
+                        },
+                        new
+                        {
+                            hotelId = 1,
+                            roomId = 102,
+                            nickName = "Seahawks Snooze",
+                            price = 45m,
+                            space = 2,
+                            visitorId = 0
+                        },
+                        new
+                        {
+                            hotelId = 2,
+                            roomId = 101,
+                            nickName = "Golden hat",
+                            price = 75m,
+                            space = 3,
+                            visitorId = 0
+                        });
                 });
 
             modelBuilder.Entity("Async_Inn_app.models.Employees", b =>

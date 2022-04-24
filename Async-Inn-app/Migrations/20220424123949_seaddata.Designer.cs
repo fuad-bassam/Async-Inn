@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Async_Inn_app.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    [Migration("20220418085634_AddRoomsAndAmenitiesTables")]
-    partial class AddRoomsAndAmenitiesTables
+    [Migration("20220424123949_seaddata")]
+    partial class seaddata
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -158,15 +158,13 @@ namespace Async_Inn_app.Migrations
 
             modelBuilder.Entity("Async_Inn_app.models.Rooms", b =>
                 {
-                    b.Property<int>("hotelIdRoomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("HotelBrancheshotelId")
+                    b.Property<int>("hotelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("hotelId")
+                    b.Property<int>("roomId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HotelBrancheshotelId")
                         .HasColumnType("int");
 
                     b.Property<string>("nickName")
@@ -175,52 +173,17 @@ namespace Async_Inn_app.Migrations
                     b.Property<decimal>("price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("roomId")
-                        .HasColumnType("int");
-
                     b.Property<int>("space")
                         .HasColumnType("int");
 
                     b.Property<int>("visitorId")
                         .HasColumnType("int");
 
-                    b.HasKey("hotelIdRoomId");
+                    b.HasKey("hotelId", "roomId");
 
                     b.HasIndex("HotelBrancheshotelId");
 
                     b.ToTable("Rooms");
-
-                    b.HasData(
-                        new
-                        {
-                            hotelIdRoomId = 1101,
-                            hotelId = 0,
-                            nickName = "Restful Rainier",
-                            price = 29.9m,
-                            roomId = 101,
-                            space = 2,
-                            visitorId = 0
-                        },
-                        new
-                        {
-                            hotelIdRoomId = 1102,
-                            hotelId = 0,
-                            nickName = "Seahawks Snooze",
-                            price = 45m,
-                            roomId = 102,
-                            space = 2,
-                            visitorId = 0
-                        },
-                        new
-                        {
-                            hotelIdRoomId = 2101,
-                            hotelId = 0,
-                            nickName = "Golden hat",
-                            price = 75m,
-                            roomId = 101,
-                            space = 3,
-                            visitorId = 0
-                        });
                 });
 
             modelBuilder.Entity("Async_Inn_app.models.Employees", b =>

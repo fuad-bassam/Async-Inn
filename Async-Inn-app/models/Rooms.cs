@@ -9,8 +9,8 @@ namespace Async_Inn_app.models
 {
     public class Rooms
     {
-        [Key]
-        public int hotelIdRoomId { get; set; }
+        //[Key]
+        //public int hotelIdRoomId { get; set; }
 
         [Required]
         public int roomId { get; set; }

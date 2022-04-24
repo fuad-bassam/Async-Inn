@@ -4,14 +4,16 @@ using Async_Inn_app.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Async_Inn_app.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    partial class AsyncInnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220424122946_Addrooms")]
+    partial class Addrooms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,6 +164,9 @@ namespace Async_Inn_app.Migrations
                     b.Property<int>("roomId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("HotelBrancheshotelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("nickName")
                         .HasColumnType("nvarchar(max)");
 
@@ -176,88 +181,9 @@ namespace Async_Inn_app.Migrations
 
                     b.HasKey("hotelId", "roomId");
 
+                    b.HasIndex("HotelBrancheshotelId");
+
                     b.ToTable("Rooms");
-
-                    b.HasData(
-                        new
-                        {
-                            hotelId = 1,
-                            roomId = 101,
-                            nickName = "Restful Rainier",
-                            price = 29.9m,
-                            space = 2,
-                            visitorId = 0
-                        },
-                        new
-                        {
-                            hotelId = 1,
-                            roomId = 102,
-                            nickName = "Seahawks Snooze",
-                            price = 45m,
-                            space = 2,
-                            visitorId = 0
-                        },
-                        new
-                        {
-                            hotelId = 2,
-                            roomId = 101,
-                            nickName = "Golden hat",
-                            price = 75m,
-                            space = 3,
-                            visitorId = 0
-                        });
-                });
-
-            modelBuilder.Entity("Async_Inn_app.models.RoomsAmenities", b =>
-                {
-                    b.Property<int>("hotelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("roomId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("amenitiesId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RoomshotelId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RoomsroomId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("canRemove")
-                        .HasColumnType("bit");
-
-                    b.HasKey("hotelId", "roomId", "amenitiesId");
-
-                    b.HasIndex("amenitiesId");
-
-                    b.HasIndex("RoomshotelId", "RoomsroomId");
-
-                    b.ToTable("RoomsAmenities");
-
-                    b.HasData(
-                        new
-                        {
-                            hotelId = 1,
-                            roomId = 101,
-                            amenitiesId = 11,
-                            canRemove = true
-                        },
-                        new
-                        {
-                            hotelId = 2,
-                            roomId = 101,
-                            amenitiesId = 11,
-                            canRemove = false
-                        },
-                        new
-                        {
-                            hotelId = 1,
-                            roomId = 101,
-                            amenitiesId = 21,
-                            canRemove = false
-                        });
                 });
 
             modelBuilder.Entity("Async_Inn_app.models.Employees", b =>
@@ -273,28 +199,9 @@ namespace Async_Inn_app.Migrations
                 {
                     b.HasOne("Async_Inn_app.models.HotelBranches", "HotelBranches")
                         .WithMany()
-                        .HasForeignKey("hotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HotelBrancheshotelId");
 
                     b.Navigation("HotelBranches");
-                });
-
-            modelBuilder.Entity("Async_Inn_app.models.RoomsAmenities", b =>
-                {
-                    b.HasOne("Async_Inn_app.models.Amenities", "Amenities")
-                        .WithMany()
-                        .HasForeignKey("amenitiesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Async_Inn_app.models.Rooms", "Rooms")
-                        .WithMany()
-                        .HasForeignKey("RoomshotelId", "RoomsroomId");
-
-                    b.Navigation("Amenities");
-
-                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }
