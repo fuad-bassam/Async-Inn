@@ -40,16 +40,18 @@ namespace Async_Inn_app.models.Services
 
         public async Task<HotelBranches> GetHotel(int id)
         {
-            HotelBranches hotel = await _context.HotelBranches.FindAsync(id);
+            //HotelBranches hotel = await _context.HotelBranches.FindAsync(id);
 
-            return hotel;
+            //return hotel;
+            return await _context.HotelBranches.Include(x => x.rooms).FirstOrDefaultAsync(z => z.hotelId == id);
         }
 
         public async Task<List<HotelBranches>> GetHotels()
         {
-            var hotels = await _context.HotelBranches.ToListAsync();
+            //var hotels = await _context.HotelBranches.ToListAsync();
 
-            return hotels;
+            //return hotels;
+            return await _context.HotelBranches.Include(x => x.rooms).ToListAsync();
         }
 
         public async Task<HotelBranches> UpdateHotel(int id, HotelBranches hotelBranches)

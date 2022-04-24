@@ -26,7 +26,7 @@ namespace Async_Inn_app.models
         public int roomsNum { get; set; }
         public List<Rooms> rooms { get; set; }
 
-        public List<Rooms> rooms { get; set; }
+      
         //public int empId { get; set; }
 
         //public virtual List<Employees> Employees { get; set; }

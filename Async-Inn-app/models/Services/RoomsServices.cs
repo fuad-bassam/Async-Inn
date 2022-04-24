@@ -28,20 +28,6 @@ namespace Async_Inn_app.models.Services
         }
 
 
-        public async Task Delete(int hotelId, int roomId)
-        {
-            Rooms rooms = await GetRoom(hotelId,roomId);
-            if (rooms != null)
-            {
-                _context.Entry(rooms).State = EntityState.Deleted;
-
-                await _context.SaveChangesAsync();
-            }
-
-
-        }
-
-
         public async Task<Rooms> GetRoom(int hotelId, int roomId)
         {
 
@@ -50,7 +36,7 @@ namespace Async_Inn_app.models.Services
 
             //return rooms;
 
-            return await _context.Rooms.Include(a => a.roomsAmenities).ThenInclude(b => b.amenities).FirstOrDefaultAsync(c => c.hotelIdRoomId == id);
+            return await _context.Rooms.Include(a => a.roomsAmenities).ThenInclude(b => b.Amenities).FirstOrDefaultAsync(c => c.hotelId == hotelId && c.roomId == roomId);
         }
 
         public async Task<List<Rooms>> GetRooms()
@@ -58,7 +44,7 @@ namespace Async_Inn_app.models.Services
             //var rooms = await _context.Rooms.ToListAsync();
 
             //return rooms;
-            return await _context.Rooms.Include(a => a.roomsAmenities).ThenInclude(b => b.amenities).ToListAsync();
+            return await _context.Rooms.Include(a => a.roomsAmenities).ThenInclude(b => b.Amenities).ToListAsync();
         }
 
 
@@ -74,9 +60,9 @@ namespace Async_Inn_app.models.Services
             return rooms;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(int hotelId, int roomId)
         {
-            Rooms rooms = await GetRoom(id);
+            Rooms rooms = await GetRoom(hotelId, roomId);
             if (rooms != null)
             {
                 _context.Entry(rooms).State = EntityState.Deleted;
@@ -88,9 +74,10 @@ namespace Async_Inn_app.models.Services
         }
 
 
-        public async Task AddAmenityToRoom(int hotelIdRoomId, int amenityId)
+
+        public async Task AddAmenityToRoom(int hotelId, int roomId, int amenityId)
         {
-            RoomsAmenities roomsAmenities = new RoomsAmenities { hotelIdRoomId = hotelIdRoomId, amenitiesId = amenityId };
+            RoomsAmenities roomsAmenities = new RoomsAmenities { hotelId= hotelId, roomId= roomId, amenitiesId = amenityId };
 
             _context.Entry(roomsAmenities).State = EntityState.Added;
             await _context.SaveChangesAsync();
