@@ -85,12 +85,10 @@ namespace Async_Inn_app.data
              modelBuilder.Entity<RoomsAmenities>().HasData(
              new RoomsAmenities { amenitiesId = 11, hotelId = 1, roomId = 101,canRemove=true },
              new RoomsAmenities { amenitiesId = 11, hotelId = 2, roomId = 101 },
-             new RoomsAmenities { amenitiesId = 21, hotelId = 1, roomId = 101 },
-             new RoomsAmenities { amenitiesId = 21, hotelId = 2, roomId = 101 },
              new RoomsAmenities { amenitiesId = 21, hotelId = 1, roomId = 101 }
+        
 
-           //new RoomsAmenities {  canRemove= true  }
-
+          
 
            );
         }

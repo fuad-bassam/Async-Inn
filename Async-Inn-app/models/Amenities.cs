@@ -18,5 +18,8 @@ namespace Async_Inn_app.models
         public string description { get; set; }
 
         public decimal price { get; set; }
+
+        public List<RoomsAmenities> roomsAmenities { get; set; }
+
     }
 }
