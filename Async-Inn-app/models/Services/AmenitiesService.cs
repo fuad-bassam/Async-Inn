@@ -24,7 +24,7 @@ namespace Async_Inn_app.models.Services
             //Amenities amenities = await _context.Amenities.FindAsync(id);
 
             //return amenities;
-            return await _context.Amenities.Include(x => x.roomsAmenities).ThenInclude(y => y.rooms).FirstOrDefaultAsync(z => z.amenitiesId == id);
+            return await _context.Amenities.Include(x => x.roomsAmenities).ThenInclude(y => y.Rooms).FirstOrDefaultAsync(z => z.amenitiesId == id);
         }
 
         public async Task<List<Amenities>> GetAmenities()
@@ -32,7 +32,7 @@ namespace Async_Inn_app.models.Services
             //var amenities = await _context.Amenities.ToListAsync();
 
             //return amenities;
-            return await _context.Amenities.Include(x => x.roomsAmenities).ThenInclude(y => y.rooms).ToListAsync();
+            return await _context.Amenities.Include(x => x.roomsAmenities).ThenInclude(y => y.Rooms).ToListAsync();
         }
         public async Task<Amenities> Create(Amenities amenities)
         {

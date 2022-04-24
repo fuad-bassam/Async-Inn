@@ -30,15 +30,6 @@ namespace Async_Inn_app.models
         public int visitorId { get; set; }
         public List<RoomsAmenities> roomsAmenities { get; set; }
 
-       
-        //[Display(Name = "HotelBranches")]
-
-
-        public List<RoomsAmenities> roomsAmenities { get; set; }
-
-
-
-
 
         // public int visitorId { get; set; }
 
