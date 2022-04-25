@@ -2,7 +2,7 @@
 
 namespace Async_Inn_app.Migrations
 {
-    public partial class AddRoomsAndAmenitiesTables : Migration
+    public partial class AddAsyncTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,7 +69,8 @@ namespace Async_Inn_app.Migrations
                     roomId = table.Column<int>(type: "int", nullable: false),
                     nickName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     space = table.Column<int>(type: "int", nullable: false),
-                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    visitorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,9 +90,7 @@ namespace Async_Inn_app.Migrations
                     roomId = table.Column<int>(type: "int", nullable: false),
                     hotelId = table.Column<int>(type: "int", nullable: false),
                     amenitiesId = table.Column<int>(type: "int", nullable: false),
-                    canRemove = table.Column<bool>(type: "bit", nullable: false),
-                    RoomshotelId = table.Column<int>(type: "int", nullable: true),
-                    RoomsroomId = table.Column<int>(type: "int", nullable: true)
+                    canRemove = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,11 +102,11 @@ namespace Async_Inn_app.Migrations
                         principalColumn: "amenitiesId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RoomsAmenities_Rooms_RoomshotelId_RoomsroomId",
-                        columns: x => new { x.RoomshotelId, x.RoomsroomId },
+                        name: "FK_RoomsAmenities_Rooms_hotelId_roomId",
+                        columns: x => new { x.hotelId, x.roomId },
                         principalTable: "Rooms",
                         principalColumns: new[] { "hotelId", "roomId" },
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -132,23 +131,33 @@ namespace Async_Inn_app.Migrations
 
             migrationBuilder.InsertData(
                 table: "Rooms",
-                columns: new[] { "hotelId", "roomId", "nickName", "price", "space" },
-                values: new object[,]
-                {
-                    { 1, 101, "Restful Rainier", 29.9m, 2 },
-                    { 1, 102, "Seahawks Snooze", 45m, 2 },
-                    { 2, 101, "Golden hat", 75m, 3 }
-                });
+                columns: new[] { "hotelId", "roomId", "nickName", "price", "space", "visitorId" },
+                values: new object[] { 1, 101, "Restful Rainier", 29.9m, 2, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "hotelId", "roomId", "nickName", "price", "space", "visitorId" },
+                values: new object[] { 1, 102, "Seahawks Snooze", 45m, 2, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "hotelId", "roomId", "nickName", "price", "space", "visitorId" },
+                values: new object[] { 2, 101, "Golden hat", 75m, 3, 0 });
 
             migrationBuilder.InsertData(
                 table: "RoomsAmenities",
-                columns: new[] { "amenitiesId", "hotelId", "roomId", "RoomshotelId", "RoomsroomId", "canRemove" },
-                values: new object[,]
-                {
-                    { 11, 1, 101, null, null, true },
-                    { 11, 2, 101, null, null, false },
-                    { 21, 1, 101, null, null, false }
-                });
+                columns: new[] { "amenitiesId", "hotelId", "roomId", "canRemove" },
+                values: new object[] { 11, 1, 101, true });
+
+            migrationBuilder.InsertData(
+                table: "RoomsAmenities",
+                columns: new[] { "amenitiesId", "hotelId", "roomId", "canRemove" },
+                values: new object[] { 21, 1, 101, false });
+
+            migrationBuilder.InsertData(
+                table: "RoomsAmenities",
+                columns: new[] { "amenitiesId", "hotelId", "roomId", "canRemove" },
+                values: new object[] { 11, 2, 101, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_HotelBrancheshotelId",
@@ -159,11 +168,6 @@ namespace Async_Inn_app.Migrations
                 name: "IX_RoomsAmenities_amenitiesId",
                 table: "RoomsAmenities",
                 column: "amenitiesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoomsAmenities_RoomshotelId_RoomsroomId",
-                table: "RoomsAmenities",
-                columns: new[] { "RoomshotelId", "RoomsroomId" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

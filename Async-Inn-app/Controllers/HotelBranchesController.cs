@@ -22,6 +22,15 @@ namespace Async_Inn_app.Controllers
             _hotel = hotel;
         }
 
+        // POST: api/HotelBranches
+
+        [HttpPost]
+        public async Task<ActionResult<HotelBranches>> PostHotelBranches(HotelBranches hotelBranches)
+        {
+            HotelBranches hotel = await _hotel.Create(hotelBranches);
+            return Ok(hotel);
+        }
+
         // GET: api/HotelBranches
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelBranches>>> GetHotelBranches()
@@ -30,7 +39,7 @@ namespace Async_Inn_app.Controllers
             return Ok(hotels);
         }
 
-        // GET: api/HotelBranches/5
+        // GET: api/HotelBranches/1
         [HttpGet("{id}")]
         public async Task<ActionResult<HotelBranches>> GetHotelBranches(int id)
         {
@@ -38,8 +47,8 @@ namespace Async_Inn_app.Controllers
             return Ok(hotel);
         }
 
-        // PUT: api/HotelBranches/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/HotelBranches/2
+       
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHotelBranches(int id, HotelBranches hotelBranches)
         {
@@ -52,16 +61,9 @@ namespace Async_Inn_app.Controllers
             return Ok(hotel);
         }
 
-        // POST: api/HotelBranches
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<HotelBranches>> PostHotelBranches(HotelBranches hotelBranches)
-        {
-            HotelBranches hotel = await _hotel.Create(hotelBranches);
-            return Ok(hotel);
-        }
+     
 
-        // DELETE: api/HotelBranches/5
+        // DELETE: api/HotelBranches/2
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHotelBranches(int id)
         {

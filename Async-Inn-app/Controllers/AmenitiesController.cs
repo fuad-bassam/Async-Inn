@@ -25,6 +25,15 @@ namespace Async_Inn_app.Controllers
             _amenities = amenities;
         }
 
+
+
+        // POST: api/Amenities
+        [HttpPost]
+        public async Task<ActionResult<Amenities>> PostAmenities(Amenities amenities)
+        {
+            Amenities amenitie = await _amenities.Create(amenities);
+            return Ok(amenitie);
+        }
         // GET: api/Amenities
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Amenities>>> GetAmenities()
@@ -33,7 +42,7 @@ namespace Async_Inn_app.Controllers
             return Ok(amenities);
         }
 
-        // GET: api/Amenities/5
+        // GET: api/Amenities/21
         [HttpGet("{id}")]
         public async Task<ActionResult<Amenities>> GetAmenities(int id)
         {
@@ -41,8 +50,7 @@ namespace Async_Inn_app.Controllers
             return Ok(amenities);
         }
 
-        // PUT: api/Amenities/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/Amenities/21
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAmenities(int id, Amenities amenities)
         {
@@ -55,16 +63,8 @@ namespace Async_Inn_app.Controllers
             return Ok(amenitie);
         }
 
-        // POST: api/Amenities
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Amenities>> PostAmenities(Amenities amenities)
-        {
-            Amenities amenitie = await _amenities.Create(amenities);
-            return Ok(amenitie);
-        }
 
-        // DELETE: api/Amenities/5
+        // DELETE: api/Amenities/21
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAmenities(int id)
         {

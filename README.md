@@ -4,11 +4,29 @@
 
 **Date : 20/4/2022**
 
+ #|s
+ ---|---
+1|[Description](#description)
+1|[ERD](#erd)
+1|[Tables description](#tables-description)
+1|[Controllers in project](#controllers)
+1|[Routeing in project](#route)
+
+
+
+## Description 
+
+This project is a **`DotNet MVC AND API`** project for Hotel chain named **Async Inn** , that have the main **CRUD** operation and access for the hotel.
+
+-----    
+## ERD
+
+
 ![img](./image/ERD_Hotel.png)
 
 ---
 
-## tables description
+## Tables description
 
 
 for Hotels we create 9 tables with ability to add more in futuer version of this API
@@ -121,7 +139,7 @@ it is a entity joint table between Employees table and WorkTime table.
 
  
  
-
+-----   
 ## controllers 
 
 we have three controllers in our project
@@ -131,3 +149,83 @@ we have three controllers in our project
 - RoomsController
 
 each controller have the CRUD operation for his interface (we use "Dependency Injection" to improve the code).
+
+----    
+## Route
+
+for the route in our project we have :
+
+- `/` : this to print (Hello World!)
+- `/hey` : this to print (booyah)
+- Controllers.
+
+ 1. **AmenitiesController**
+     -  // POST: `api/Amenities` (to Create new Amenities, take in body JSON of class type `Amenities`) like.
+            
+     ```
+    {
+    "amenitiesId": 51,
+    "name": "ocean view",
+    "description": "have a view from the window on the ocean.",
+    "price": 35
+    }
+     ```      
+
+     -  // GET: `api/Amenities` (to Get all Amenities)
+     -  // GET: `api/Amenities/21` (to Get Amenities depend on resorse `key`)
+     -  // PUT: `api/Amenities/21` (to Update Amenities depend on  resorse `key` and take in body json of class type `Amenities`;
+     -  // DELETE: `api/Amenities/21` (to delete data from Amenities depend on resorse `key`)
+     
+
+
+
+2. **HotelBranchesController**
+      -  // POST: `api/HotelBranches` (to Create new Hotel, take in body JSON of class type `HotelBranches`) like.
+            
+     ```
+    {
+        "hotelId": 3,
+        "name": "Downtown Branch",
+        "city": "jordan",
+        "state": "amman",
+        "address": "Downtoun-ALsame street ",
+        "phoneNum": "00963323423212",
+        "roomsNum": 30
+    }
+     ```      
+
+     -  // GET: `api/HotelBranches` (to Get all HotelBranches)
+     -  // GET: `api/HotelBranches/1` (to Get HotelBranches depend on resorse `key`)
+     -  // PUT: `api/HotelBranches/1` (to Update HotelBranches depend on  resorse `key` and take in body json of class type `HotelBranches`;
+     -  // DELETE: `api/HotelBranches/1` (to delete data from HotelBranches depend on resorse `key`)
+     
+
+
+3. **RoomsController**
+     -  // POST: `api/Rooms` (to Create new Rooms, take in body JSON of class type `Rooms`) like.
+            
+     ```
+       {
+        "hotelId": 2,
+        "roomId": 103,
+        "nickName": "Restful Rainier",
+        "space": 2,
+        "price": 29.9,
+       }
+     ```      
+
+     -  // GET: `api/Rooms` (to Get all Rooms)
+     -  // GET: `api/Rooms/1/101` (to Get Rooms depend on composite key as resorse first`hotelId`, then `roomId`)
+     -  // PUT: `api/Rooms/1/101` (to Update Rooms depend on composite key as resorse first`hotelId`, then `roomId` and take in body json of class type `HotelBranches`;
+     -  // DELETE: `api/Rooms/1/101` (to delete data from Rooms depend on composite key as resorse first`hotelId`, then `roomId`)
+     -  // GET: `api/Rooms/1/101/Amenity/31` (to create new RoomsAmenities take in body JSON of class type `RoomsAmenities`)
+
+    ```
+      {
+        "roomId": 101,
+        "hotelId": 2,
+        "amenitiesId": 21,
+        "canRemove": true
+      }
+     ```  
+     -  // DELETE: `api/Rooms/1/101/Amenity/31` (to delete data from RoomsAmenities depend on composite key as resorse first`hotelId`, then `roomId` the `amenityId`)
