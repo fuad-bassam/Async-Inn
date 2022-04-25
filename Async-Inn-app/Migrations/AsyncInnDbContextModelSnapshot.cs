@@ -219,20 +219,12 @@ namespace Async_Inn_app.Migrations
                     b.Property<int>("amenitiesId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoomshotelId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RoomsroomId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("canRemove")
                         .HasColumnType("bit");
 
                     b.HasKey("hotelId", "roomId", "amenitiesId");
 
                     b.HasIndex("amenitiesId");
-
-                    b.HasIndex("RoomshotelId", "RoomsroomId");
 
                     b.ToTable("RoomsAmenities");
 
@@ -290,7 +282,9 @@ namespace Async_Inn_app.Migrations
 
                     b.HasOne("Async_Inn_app.models.Rooms", "Rooms")
                         .WithMany("roomsAmenities")
-                        .HasForeignKey("RoomshotelId", "RoomsroomId");
+                        .HasForeignKey("hotelId", "roomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Amenities");
 

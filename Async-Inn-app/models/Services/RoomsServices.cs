@@ -17,8 +17,6 @@ namespace Async_Inn_app.models.Services
             _context = context;
         }
 
-     
-
         public async Task<Rooms> Create(Rooms rooms)
         {
             _context.Entry(rooms).State = EntityState.Added;
@@ -28,10 +26,10 @@ namespace Async_Inn_app.models.Services
         }
 
 
-        public async Task<Rooms> GetRoom(int hotelId, int roomId)
+        public async Task<Rooms> GetRoom(int hotelId, int roomId )
         {
 
-            Rooms rooms = await _context.Rooms.FindAsync(hotelId,roomId);
+            // Rooms rooms = await _context.Rooms.FindAsync(hotelId,roomId);
 
 
             //return rooms;
@@ -75,18 +73,17 @@ namespace Async_Inn_app.models.Services
 
 
 
-        public async Task AddAmenityToRoom(int hotelId, int roomId, int amenityId)
+        public async Task<RoomsAmenities> AddAmenityToRoom(RoomsAmenities roomsAmenities)
         {
-            RoomsAmenities roomsAmenities = new RoomsAmenities { hotelId= hotelId, roomId= roomId, amenitiesId = amenityId };
-
             _context.Entry(roomsAmenities).State = EntityState.Added;
-            await _context.SaveChangesAsync();
 
+            await _context.SaveChangesAsync();
+            return roomsAmenities;
         }
 
-        public async Task RemoveAmentityFromRoom(int roomId, int amenityId)
+        public async Task RemoveAmentityFromRoom(int hotelId, int roomId, int amenityId)
         {
-            RoomsAmenities roomsAmenities = await _context.RoomsAmenities.FindAsync();
+            RoomsAmenities roomsAmenities = await _context.RoomsAmenities.FirstOrDefaultAsync(c => c.hotelId == hotelId && c.roomId == roomId && c.amenitiesId ==amenityId);
             if (roomsAmenities != null)
             {
                 _context.Entry(roomsAmenities).State = EntityState.Deleted;
@@ -94,6 +91,7 @@ namespace Async_Inn_app.models.Services
                 await _context.SaveChangesAsync();
             }
         }
+
 
     }
 }

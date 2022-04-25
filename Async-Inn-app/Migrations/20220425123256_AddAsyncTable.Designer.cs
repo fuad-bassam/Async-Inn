@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Async_Inn_app.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    [Migration("20220424155846_updateRoomsAndAmenitiesTables1")]
-    partial class updateRoomsAndAmenitiesTables1
+    [Migration("20220425123256_AddAsyncTable")]
+    partial class AddAsyncTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,20 +221,12 @@ namespace Async_Inn_app.Migrations
                     b.Property<int>("amenitiesId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoomshotelId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RoomsroomId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("canRemove")
                         .HasColumnType("bit");
 
                     b.HasKey("hotelId", "roomId", "amenitiesId");
 
                     b.HasIndex("amenitiesId");
-
-                    b.HasIndex("RoomshotelId", "RoomsroomId");
 
                     b.ToTable("RoomsAmenities");
 
@@ -292,7 +284,9 @@ namespace Async_Inn_app.Migrations
 
                     b.HasOne("Async_Inn_app.models.Rooms", "Rooms")
                         .WithMany("roomsAmenities")
-                        .HasForeignKey("RoomshotelId", "RoomsroomId");
+                        .HasForeignKey("hotelId", "roomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Amenities");
 

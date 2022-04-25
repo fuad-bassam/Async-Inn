@@ -50,13 +50,15 @@ namespace Async_Inn_app.data
 
                 });
             modelBuilder.Entity<RoomsAmenities>().HasKey
-             (x => new
-             {
-                 x.hotelId,
-                 x.roomId,
-                 x.amenitiesId
+             (
 
-             });
+              x => new
+              {
+                  x.hotelId,
+                  x.roomId,
+                  x.amenitiesId
+
+              });
 
             modelBuilder.Entity<HotelBranches>().HasData(
               new HotelBranches { hotelId = 1, name = "Downtown Branch", city = "jordan", state = "amman", address = "Downtoun-ALsame street ", phoneNum = "00963323423212", roomsNum = 30 },

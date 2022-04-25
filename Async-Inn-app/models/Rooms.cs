@@ -28,7 +28,7 @@ namespace Async_Inn_app.models
 
         public virtual HotelBranches HotelBranches { get; set; }
         public int visitorId { get; set; }
-        public List<RoomsAmenities> roomsAmenities { get; set; }
+        public virtual List<RoomsAmenities> roomsAmenities { get; set; }
 
 
         // public int visitorId { get; set; }
