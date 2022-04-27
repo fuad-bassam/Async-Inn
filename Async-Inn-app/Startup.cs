@@ -48,6 +48,7 @@ namespace Async_Inn_app
 
                  x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 
+
                  );
 
         }
