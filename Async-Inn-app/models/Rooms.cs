@@ -25,6 +25,7 @@ namespace Async_Inn_app.models
 
         public decimal price { get; set; }
 
+        public bool PetFriendly { get; set; }
 
         public virtual HotelBranches HotelBranches { get; set; }
         public int visitorId { get; set; }

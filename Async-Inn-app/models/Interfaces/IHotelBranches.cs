@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Async_Inn_app.models.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,10 +10,10 @@ namespace Async_Inn_app.models.Interfaces
     {
 
 
-        Task<HotelBranches> Create(HotelBranches hotelBranches);
-        Task<List<HotelBranches>> GetHotels();
-        Task<HotelBranches> GetHotel(int id);
-        Task<HotelBranches> UpdateHotel(int id, HotelBranches hotelBranches);
+        Task<HotelBranchesDTO> Create(HotelBranchesDTO hotelBranchesDTO);
+        Task<List<HotelBranchesDTO>> GetHotels();
+        Task<HotelBranchesDTO> GetHotel(int id);
+        Task<HotelBranchesDTO> UpdateHotel(int id, HotelBranchesDTO hotelBranchesDTO);
         Task Delete(int id);
 
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Async_Inn_app.data;
 using Async_Inn_app.models;
 using Async_Inn_app.models.Interfaces;
+using Async_Inn_app.models.DTO;
 
 namespace Async_Inn_app.Controllers
 {
@@ -25,14 +26,14 @@ namespace Async_Inn_app.Controllers
 
         // POST: api/Rooms
         [HttpPost]
-        public async Task<ActionResult<Rooms>> PostRooms(Rooms rooms)
+        public async Task<ActionResult<RoomsDto>> PostRooms(Rooms rooms)
         {
-            Rooms room = await _rooms.Create(rooms);
-            return Ok(room);
+            RoomsDto roomsDto = await _rooms.Create(rooms);
+            return Ok(roomsDto);
         }
         // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Rooms>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<RoomsDto>>> GetRooms()
         {
             var rooms = await _rooms.GetRooms();
             return Ok(rooms);
@@ -40,20 +41,20 @@ namespace Async_Inn_app.Controllers
 
         // GET: api/Rooms/1/101
         [HttpGet("{hotelId}/{roomId}")]
-        public async Task<ActionResult<Rooms>> GetRooms(int hotelId, int roomId)
+        public async Task<ActionResult<RoomsDto>> GetRooms(int hotelId, int roomId)
         {
 
-            Rooms room = await _rooms.GetRoom(hotelId,roomId);
+            RoomsDto room = await _rooms.GetRoom(hotelId,roomId);
 
             return Ok(room);
         }
 
         // PUT: api/Rooms/1/101
         [HttpPut("{hotelId}/{roomId}")]
-        public async Task<IActionResult> PutRooms(int hotelId, int roomId, Rooms rooms)
+        public async Task<IActionResult> PutRooms(int hotelId, int roomId, RoomsDto roomsDto)
         {
 
-            Rooms room = await _rooms.UpdateRoom( hotelId, roomId, rooms);
+            RoomsDto room = await _rooms.UpdateRoom( hotelId, roomId, roomsDto);
 
             return Ok(room);
         }

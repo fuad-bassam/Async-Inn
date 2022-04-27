@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Async_Inn_app.data;
 using Async_Inn_app.models;
 using Async_Inn_app.models.Interfaces;
+using Async_Inn_app.models.DTO;
 
 namespace Async_Inn_app.Controllers
 {
@@ -29,14 +30,14 @@ namespace Async_Inn_app.Controllers
 
         // POST: api/Amenities
         [HttpPost]
-        public async Task<ActionResult<Amenities>> PostAmenities(Amenities amenities)
+        public async Task<ActionResult<AmenitiesDto>> PostAmenities(Amenities amenities)
         {
-            Amenities amenitie = await _amenities.Create(amenities);
-            return Ok(amenitie);
+            AmenitiesDto amenitiesDto = await _amenities.Create(amenities);
+            return Ok(amenitiesDto);
         }
         // GET: api/Amenities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amenities>>> GetAmenities()
+        public async Task<ActionResult<IEnumerable<AmenitiesDto>>> GetAmenities()
         {
             var amenities = await _amenities.GetAmenities();
             return Ok(amenities);
@@ -44,10 +45,10 @@ namespace Async_Inn_app.Controllers
 
         // GET: api/Amenities/21
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenities>> GetAmenities(int id)
+        public async Task<ActionResult<AmenitiesDto>> GetAmenities(int id)
         {
-            Amenities amenities = await _amenities.GetAmenitie(id);
-            return Ok(amenities);
+            AmenitiesDto amenitiesDto = await _amenities.GetAmenitie(id);
+            return Ok(amenitiesDto);
         }
 
         // PUT: api/Amenities/21

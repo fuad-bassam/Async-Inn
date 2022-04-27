@@ -4,14 +4,16 @@ using Async_Inn_app.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Async_Inn_app.Migrations
 {
     [DbContext(typeof(AsyncInnDbContext))]
-    partial class AsyncInnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220427151345_addPetFriendlyToRooms")]
+    partial class addPetFriendlyToRooms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,20 +62,6 @@ namespace Async_Inn_app.Migrations
                             description = "Have a mini bar in your rome with a discount of 25% on drinks from it.",
                             name = "mini bar",
                             price = 40m
-                        },
-                        new
-                        {
-                            amenitiesId = 22,
-                            description = "haveing a romantic mode with flour for couples",
-                            name = "Romantic mode",
-                            price = 70m
-                        },
-                        new
-                        {
-                            amenitiesId = 23,
-                            description = "have fancy library with more than 100 book",
-                            name = "fancy library",
-                            price = 20m
                         });
                 });
 
@@ -200,7 +188,7 @@ namespace Async_Inn_app.Migrations
                         {
                             hotelId = 1,
                             roomId = 101,
-                            PetFriendly = true,
+                            PetFriendly = false,
                             nickName = "Restful Rainier",
                             price = 29.9m,
                             space = 2,
@@ -220,7 +208,7 @@ namespace Async_Inn_app.Migrations
                         {
                             hotelId = 2,
                             roomId = 101,
-                            PetFriendly = true,
+                            PetFriendly = false,
                             nickName = "Golden hat",
                             price = 75m,
                             space = 3,
@@ -268,20 +256,6 @@ namespace Async_Inn_app.Migrations
                             hotelId = 1,
                             roomId = 101,
                             amenitiesId = 21,
-                            canRemove = false
-                        },
-                        new
-                        {
-                            hotelId = 1,
-                            roomId = 102,
-                            amenitiesId = 22,
-                            canRemove = true
-                        },
-                        new
-                        {
-                            hotelId = 1,
-                            roomId = 102,
-                            amenitiesId = 23,
                             canRemove = false
                         });
                 });

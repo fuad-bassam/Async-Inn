@@ -1,4 +1,5 @@
 ﻿using Async_Inn_app.data;
+using Async_Inn_app.models.DTO;
 using Async_Inn_app.models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,17 +18,31 @@ namespace Async_Inn_app.models.Services
         {
             _context = context;
         }
-        public async Task<HotelBranches> Create(HotelBranches hotelBranches)
+        public async Task<HotelBranchesDTO> Create(HotelBranchesDTO hotelBranchesDTO)
         {
+
+            HotelBranches hotelBranches = new HotelBranches
+            {
+
+
+                hotelId = hotelBranchesDTO.hotelId,
+                name = hotelBranchesDTO.name,
+                city = hotelBranchesDTO.city,
+                state = hotelBranchesDTO.state,
+                address = hotelBranchesDTO.address,
+                phoneNum = hotelBranchesDTO.phoneNum
+            };
+
+
             _context.Entry(hotelBranches).State = EntityState.Added;
 
             await _context.SaveChangesAsync();
-            return hotelBranches;
+            return hotelBranchesDTO;
         }
 
         public async Task Delete(int id)
         {
-            HotelBranches hotel = await GetHotel(id);
+            HotelBranches hotel = await  _context.HotelBranches.FindAsync(id);
             if (hotel != null)
             {
                 _context.Entry(hotel).State = EntityState.Deleted;
@@ -38,23 +53,104 @@ namespace Async_Inn_app.models.Services
 
         }
 
-        public async Task<HotelBranches> GetHotel(int id)
+        public async Task<HotelBranchesDTO> GetHotel(int id)
         {
             //HotelBranches hotel = await _context.HotelBranches.FindAsync(id);
 
             //return hotel;
-            return await _context.HotelBranches.Include(x => x.rooms).FirstOrDefaultAsync(z => z.hotelId == id);
+            //return await _context.HotelBranches.Include(x => x.rooms).FirstOrDefaultAsync(z => z.hotelId == id);
+
+            return await _context.HotelBranches.Select(
+                hotel => new HotelBranchesDTO
+                {
+
+                    hotelId = hotel.hotelId,
+                    name = hotel.name,
+                    city = hotel.city,
+                    state = hotel.state,
+                    address = hotel.address,
+                    phoneNum = hotel.phoneNum,
+
+                    Rooms = hotel.rooms.Select(
+
+                          Rooms => new RoomsDto
+                          {
+
+                              hotelId = Rooms.hotelId,
+                              roomId = Rooms.roomId,
+                              nickName = Rooms.nickName,
+                              space = Rooms.space,
+
+                              Amenities = Rooms.roomsAmenities
+                             .Select(x => new AmenitiesDto
+                             {
+                                 amenitiesId = x.Amenities.amenitiesId,
+                                 name = x.Amenities.name
+
+
+
+                             }).ToList()
+
+                          }
+                        ).ToList()
+
+
+
+                }
+
+
+                ).FirstOrDefaultAsync(z => z.hotelId == id);
         }
 
-        public async Task<List<HotelBranches>> GetHotels()
+        public async Task<List<HotelBranchesDTO>> GetHotels()
         {
             //var hotels = await _context.HotelBranches.ToListAsync();
 
             //return hotels;
-            return await _context.HotelBranches.Include(x => x.rooms).ToListAsync();
+            //return await _context.HotelBranches.Include(x => x.rooms).ToListAsync();
+            return await _context.HotelBranches.Select(
+               hotel => new HotelBranchesDTO
+               {
+
+                   hotelId = hotel.hotelId,
+                   name = hotel.name,
+                   city = hotel.city,
+                   state = hotel.state,
+                   address = hotel.address,
+                   phoneNum = hotel.phoneNum,
+
+                   Rooms = hotel.rooms.Select(
+
+                         Rooms => new RoomsDto
+                         {
+
+                             hotelId = Rooms.hotelId,
+                             roomId = Rooms.roomId,
+                             nickName = Rooms.nickName,
+                             space = Rooms.space,
+
+                             Amenities = Rooms.roomsAmenities
+                            .Select(x => new AmenitiesDto
+                            {
+                                amenitiesId = x.Amenities.amenitiesId,
+                                name = x.Amenities.name
+
+
+
+                            }).ToList()
+
+                         }
+                       ).ToList()
+
+
+
+               }
+
+
+               ).ToListAsync();
         }
 
-        public async Task<HotelBranches> UpdateHotel(int id, HotelBranches hotelBranches)
+        public async Task<HotelBranchesDTO> UpdateHotel(int id, HotelBranchesDTO hotelBranchesDTO)
         {
             //HotelBranches hotel = await GetHotel(id);
             //if (hotel == null)
@@ -66,11 +162,26 @@ namespace Async_Inn_app.models.Services
             //await _context.SaveChangesAsync();
             //_context.Entry(student).State = EntityState.Modified;
 
-            _context.Entry(hotelBranches).State = EntityState.Modified;
+
+
+            HotelBranches hotelBranches = new HotelBranches {
+
+
+                hotelId = hotelBranchesDTO.hotelId,
+                name = hotelBranchesDTO.name,
+                city = hotelBranchesDTO.city,
+                state = hotelBranchesDTO.state,
+                address = hotelBranchesDTO.address,
+                phoneNum = hotelBranchesDTO.phoneNum
+                        };
+
+
+
+            _context.Entry(hotelBranches).State = EntityState.Added;
 
             await _context.SaveChangesAsync();
 
-            return hotelBranches;
+            return hotelBranchesDTO;
         }
       
 

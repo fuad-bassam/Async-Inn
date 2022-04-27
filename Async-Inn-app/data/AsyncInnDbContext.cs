@@ -70,10 +70,10 @@ namespace Async_Inn_app.data
 
 
             modelBuilder.Entity<Rooms>().HasData(
-             new Rooms { hotelId = 1, roomId = 101, nickName = "Restful Rainier", space = 2, price = 29.9m },
-             new Rooms { hotelId = 1, roomId = 102, nickName = "Seahawks Snooze", space = 2, price = 45 },
+             new Rooms { hotelId = 1, roomId = 101, nickName = "Restful Rainier", space = 2,PetFriendly = true , price = 29.9m },
+             new Rooms { hotelId = 1, roomId = 102, nickName = "Seahawks Snooze", PetFriendly = false , space = 2, price = 45 },
 
-             new Rooms { hotelId = 2, roomId = 101, nickName = "Golden hat", space = 3, price = 75 }
+             new Rooms { hotelId = 2, roomId = 101, nickName = "Golden hat", PetFriendly = true  ,space = 3, price = 75 }
            );
 
 
@@ -81,16 +81,19 @@ namespace Async_Inn_app.data
             modelBuilder.Entity<Amenities>().HasData(
              new Amenities { amenitiesId = 11, name = "coffee maker", description = "have a coffee maker with unlimited drink amounts from machine choices.", price = 25 },
              new Amenities { amenitiesId = 21, name = "ocean view", description = "have a view from the window on the ocean.", price = 35 },
-             new Amenities { amenitiesId = 31, name = "mini bar", description = "Have a mini bar in your rome with a discount of 25% on drinks from it.", price = 40 }
-
+             new Amenities { amenitiesId = 31, name = "mini bar", description = "Have a mini bar in your rome with a discount of 25% on drinks from it.", price = 40 },
+             new Amenities { amenitiesId = 22, name = "Romantic mode", description = "haveing a romantic mode with flour for couples", price = 70 },
+             new Amenities { amenitiesId = 23, name = "fancy library", description = "have fancy library with more than 100 book", price = 20 }
            );
 
 
 
             modelBuilder.Entity<RoomsAmenities>().HasData(
             new RoomsAmenities { amenitiesId = 11, hotelId = 1, roomId = 101, canRemove = true },
-            new RoomsAmenities { amenitiesId = 11, hotelId = 2, roomId = 101 },
-            new RoomsAmenities { amenitiesId = 21, hotelId = 1, roomId = 101 }
+            new RoomsAmenities { amenitiesId = 11, hotelId = 2, roomId = 101 , canRemove = false },
+            new RoomsAmenities { amenitiesId = 21, hotelId = 1, roomId = 101 , canRemove = false },
+               new RoomsAmenities { amenitiesId = 22, hotelId = 1, roomId = 102 ,canRemove = true },
+                  new RoomsAmenities { amenitiesId = 23, hotelId = 1, roomId = 102, canRemove = false }
        );
 
           
