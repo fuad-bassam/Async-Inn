@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Async_Inn_app.data;
 using Async_Inn_app.models;
 using Async_Inn_app.models.Interfaces;
+using Async_Inn_app.models.DTO;
 
 namespace Async_Inn_app.Controllers
 {
@@ -25,9 +26,9 @@ namespace Async_Inn_app.Controllers
         // POST: api/HotelBranches
 
         [HttpPost]
-        public async Task<ActionResult<HotelBranches>> PostHotelBranches(HotelBranches hotelBranches)
+        public async Task<ActionResult<HotelBranchesDTO>> PostHotelBranches(HotelBranchesDTO hotelBranchesDTO)
         {
-            HotelBranches hotel = await _hotel.Create(hotelBranches);
+            HotelBranchesDTO hotel = await _hotel.Create(hotelBranchesDTO);
             return Ok(hotel);
         }
 
@@ -41,23 +42,23 @@ namespace Async_Inn_app.Controllers
 
         // GET: api/HotelBranches/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<HotelBranches>> GetHotelBranches(int id)
+        public async Task<ActionResult<HotelBranchesDTO>> GetHotelBranches(int id)
         {
-            HotelBranches hotel = await _hotel.GetHotel(id);
-            return Ok(hotel);
+            HotelBranchesDTO hotelDTO = await _hotel.GetHotel(id);
+            return Ok(hotelDTO);
         }
 
         // PUT: api/HotelBranches/2
        
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotelBranches(int id, HotelBranches hotelBranches)
+        public async Task<IActionResult> PutHotelBranches(int id, HotelBranchesDTO hotelBranchesDTO)
         {
-            if (id != hotelBranches.hotelId)
+            if (id != hotelBranchesDTO.hotelId)
             {
                 return BadRequest();
             }
 
-            HotelBranches hotel = await _hotel.UpdateHotel(id,hotelBranches);
+            HotelBranchesDTO hotel = await _hotel.UpdateHotel(id, hotelBranchesDTO);
             return Ok(hotel);
         }
 
