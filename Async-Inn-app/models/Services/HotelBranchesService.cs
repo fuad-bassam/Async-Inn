@@ -24,7 +24,6 @@ namespace Async_Inn_app.models.Services
             HotelBranches hotelBranches = new HotelBranches
             {
 
-
                 hotelId = hotelBranchesDTO.hotelId,
                 name = hotelBranchesDTO.name,
                 city = hotelBranchesDTO.city,
@@ -177,7 +176,7 @@ namespace Async_Inn_app.models.Services
 
 
 
-            _context.Entry(hotelBranches).State = EntityState.Added;
+            _context.Entry(hotelBranches).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
 

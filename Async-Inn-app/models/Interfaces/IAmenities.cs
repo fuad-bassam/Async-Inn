@@ -9,7 +9,7 @@ namespace Async_Inn_app.models.Interfaces
     public interface IAmenities
     {
 
-        Task<AmenitiesDto> Create(Amenities amenities);
+        Task<AmenitiesDto> Create(AmenitiesDto amenities);
         Task<List<AmenitiesDto>> GetAmenities();
         Task<AmenitiesDto> GetAmenitie(int id);
         Task<Amenities> UpdateAmenities(int id, Amenities amenities);

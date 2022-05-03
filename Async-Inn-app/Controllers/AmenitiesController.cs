@@ -30,7 +30,7 @@ namespace Async_Inn_app.Controllers
 
         // POST: api/Amenities
         [HttpPost]
-        public async Task<ActionResult<AmenitiesDto>> PostAmenities(Amenities amenities)
+        public async Task<ActionResult<AmenitiesDto>> PostAmenities(AmenitiesDto amenities)
         {
             AmenitiesDto amenitiesDto = await _amenities.Create(amenities);
             return Ok(amenitiesDto);

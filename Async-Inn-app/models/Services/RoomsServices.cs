@@ -12,18 +12,30 @@ namespace Async_Inn_app.models.Services
     public class RoomsServices : IRooms
     {
         private readonly AsyncInnDbContext _context;
-
+       
         public RoomsServices(AsyncInnDbContext context)
         {
             _context = context;
         }
 
-        public async Task<RoomsDto> Create(Rooms rooms)
+        public async Task<RoomsDto> Create(RoomsDto roomsDto)
         {
-            _context.Entry(rooms).State = EntityState.Added;
+            Rooms rooms1 = new Rooms
+            {
+                   hotelId = roomsDto.hotelId,
+                   roomId = roomsDto.roomId,
+                   nickName = roomsDto.nickName,
+                   space = roomsDto.space,
+                   PetFriendly = roomsDto.PetFriendly
+
+
+
+            };
+
+
+            _context.Entry(rooms1).State = EntityState.Added;
 
             await _context.SaveChangesAsync();
-            RoomsDto roomsDto = await GetRoom(rooms.hotelId,rooms.roomId);
             return roomsDto;
         }
 
@@ -94,10 +106,10 @@ namespace Async_Inn_app.models.Services
         }
 
 
-        public async Task<RoomsDto> UpdateRoom(int hotelId, int roomId, RoomsDto roomsDto)
+        public async Task<RoomsDto> UpdateRoom(int hotelId, int roomId, Rooms rooms)
 
         {
-            Rooms rooms = await _context.Rooms.FindAsync(hotelId, roomId);
+          //  Rooms rooms = await _context.Rooms.FindAsync(hotelId, roomId);
 
             _context.Entry(rooms).State = EntityState.Modified;
 

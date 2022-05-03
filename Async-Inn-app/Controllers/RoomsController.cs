@@ -26,7 +26,7 @@ namespace Async_Inn_app.Controllers
 
         // POST: api/Rooms
         [HttpPost]
-        public async Task<ActionResult<RoomsDto>> PostRooms(Rooms rooms)
+        public async Task<ActionResult<RoomsDto>> PostRooms(RoomsDto rooms)
         {
             RoomsDto roomsDto = await _rooms.Create(rooms);
             return Ok(roomsDto);
@@ -51,10 +51,10 @@ namespace Async_Inn_app.Controllers
 
         // PUT: api/Rooms/1/101
         [HttpPut("{hotelId}/{roomId}")]
-        public async Task<IActionResult> PutRooms(int hotelId, int roomId, RoomsDto roomsDto)
+        public async Task<IActionResult> PutRooms(int hotelId, int roomId, Rooms rooms)
         {
 
-            RoomsDto room = await _rooms.UpdateRoom( hotelId, roomId, roomsDto);
+            RoomsDto room = await _rooms.UpdateRoom( hotelId, roomId, rooms);
 
             return Ok(room);
         }

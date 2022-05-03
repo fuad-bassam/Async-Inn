@@ -1,9 +1,11 @@
 using Async_Inn_app.data;
+using Async_Inn_app.models;
 using Async_Inn_app.models.Interfaces;
 using Async_Inn_app.models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +45,19 @@ namespace Async_Inn_app
             services.AddScoped<IAmenities, AmenitiesService>();
 
             services.AddScoped<IRooms, RoomsServices>();
+
+            services.AddIdentity <Users, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+
+            })
+                            .AddEntityFrameworkStores<AsyncInnDbContext>();
+
+            services.AddTransient<IUserService, IdentityUserService>();
+
+
             services.AddControllers().AddNewtonsoftJson(
+
 
 
                  x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -62,6 +76,8 @@ namespace Async_Inn_app
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+
 
             app.UseEndpoints(endpoints =>
             {

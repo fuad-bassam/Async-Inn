@@ -20,6 +20,6 @@ namespace Async_Inn_app.models.DTO
 
         public String phoneNum { get; set; }
 
-        public List<RoomsDto> Rooms { get; set; }
+       public List<RoomsDto> Rooms { get; set; }
     }
 }

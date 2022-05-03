@@ -55,22 +55,29 @@ namespace Async_Inn_app.models.Services
                 }
                 ).ToListAsync();
         }
-        public async Task<AmenitiesDto> Create(Amenities amenities)
+        public async Task<AmenitiesDto> Create(AmenitiesDto amenities)
         {
-            _context.Entry(amenities).State = EntityState.Added;
 
-            await _context.SaveChangesAsync();
-            AmenitiesDto amenitiesDto = new AmenitiesDto
+
+            Amenities amenities1 = new Amenities
             {
 
-                amenitiesId = amenities.amenitiesId,
+
                 name = amenities.name
+
+
             };
 
 
+            _context.Entry(amenities1).State = EntityState.Added;
+
+            await _context.SaveChangesAsync();
+            
 
 
-            return amenitiesDto;
+
+
+            return amenities;
         }
 
         public async Task Delete(int id)

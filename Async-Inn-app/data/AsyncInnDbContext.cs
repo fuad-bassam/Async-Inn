@@ -1,4 +1,5 @@
 ﻿using Async_Inn_app.models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Async_Inn_app.data
 {
-    public class AsyncInnDbContext : DbContext
+    public class AsyncInnDbContext : IdentityDbContext<Users>
     {
 
        public DbSet<Amenities> Amenities { get; set; }
@@ -41,7 +42,7 @@ namespace Async_Inn_app.data
             //modelBuilder.Entity<RoomsAmenities>().HasKey( x =>  new {x.roomId,x.featureId });
 
             // This calls the base method, but does nothing
-            // base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Rooms>().HasKey
                 (x => new
                 {

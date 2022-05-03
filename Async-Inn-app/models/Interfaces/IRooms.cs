@@ -9,11 +9,11 @@ namespace Async_Inn_app.models.Interfaces
     public interface IRooms
     {
 
-       public Task<RoomsDto> Create(Rooms rooms);
+       public Task<RoomsDto> Create(RoomsDto rooms);
        public Task<List<RoomsDto>> GetRooms();
 
       public  Task<RoomsDto> GetRoom(int hotelId, int roomId );
-       public Task<RoomsDto> UpdateRoom(int hotelId, int roomId, RoomsDto roomsDto);
+       public Task<RoomsDto> UpdateRoom(int hotelId, int roomId, Rooms rooms);
         public Task Delete(int hotelId, int roomId);
 
         public Task<RoomsAmenities> AddAmenityToRoom(RoomsAmenities roomsAmenities);
