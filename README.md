@@ -11,7 +11,7 @@
 3|[Tables description](#tables-description)
 4|[Controllers in project](#controllers)
 5|[Routeing in project](#route)
-
+6|[Identity](#Identity)
 
 
 ## Description 
@@ -229,3 +229,13 @@ for the route in our project we have :
       }
      ```  
      -  // DELETE: `api/Rooms/1/101/Amenity/31` (to delete data from RoomsAmenities depend on composite key as resorse first`hotelId`, then `roomId` the `amenityId`)
+
+
+## Identity
+
+we add form `NuGet package` called `Microsoft.aspNetcore.Identity.EntityFrameworkCore`.
+
+we use this for users data and the authentications specially and have functionality for that.
+
+
+
