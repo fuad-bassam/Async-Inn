@@ -237,5 +237,26 @@ we add form `NuGet package` called `Microsoft.aspNetcore.Identity.EntityFramewor
 
 we use this for users data and the authentications specially and have functionality for that.
 
+added new `Controllers` for users have 
 
+
+1. **Register**
+     -  // POST: `api/Users/Register` take json for `RegisterUserDto` and return `UserDto`
+     ```
+     {
+        "Username": "fuad",
+        "Email": "f.nas.x99@gmail.com",
+        "PhoneNumber": "12345",
+        "Password": "Fuad1234#"
+        }
+     ```      
+            
+2. **Login**
+         -  // POST: `api/Users/Login` take json for `RegisterUserDto` and return `UserDto`
+     ```
+     {
+        "Username": "fuad",
+        "Password": "Fuad1234#"
+        }
+     ```      
 

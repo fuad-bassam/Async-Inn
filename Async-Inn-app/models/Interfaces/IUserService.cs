@@ -9,7 +9,12 @@ namespace Async_Inn_app.models.Interfaces
 {
     public interface IUserService
     {
-        public Task<UserDto> Register(RegisterUser data, ModelStateDictionary modelState);
+
+        //ApplicationUser
+        public Task<UserDto> Register(RegisterUserDto data, ModelStateDictionary modelstate);
+
+
+        ////UserDto
         public Task<UserDto> Authenticate(string username, string password);
         
     }

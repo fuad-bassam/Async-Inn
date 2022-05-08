@@ -1,4 +1,6 @@
-﻿using Async_Inn_app.models.Interfaces;
+﻿using Async_Inn_app.models;
+using Async_Inn_app.models.DTO;
+using Async_Inn_app.models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,9 +24,35 @@ namespace Async_Inn_app.Controllers
         }
 
         [HttpPost("register")]
-        public Task<ApplicationUser> Register(RegisterUser data)
+        public async Task<ActionResult<UserDto>> Register(RegisterUserDto data)
         {
-            throw new NotImplementedException();
+
+            try {
+                UserDto userDto= await _user.Register(data, this.ModelState);
+            if (ModelState.IsValid)
+            {
+                return Ok(userDto);
+
+            }
+            return BadRequest(new ValidationProblemDetails(ModelState));
+
+            }
+            catch (Exception e)
+            { return BadRequest(e.Message); }
+        }
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserDto>> Login(RegisterUserDto user)
+        {
+            UserDto userDto = await _user.Authenticate(user.Username, user.Password);
+                if (userDto != null)
+                {
+                    return Ok(userDto);
+
+                }
+                return BadRequest("user and password not matching");
+
+        
         }
 
     }
