@@ -46,7 +46,7 @@ namespace Async_Inn_app
 
             services.AddScoped<IRooms, RoomsServices>();
 
-            services.AddIdentity <Users, IdentityRole>(options =>
+            services.AddIdentity <ApplicationUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
 

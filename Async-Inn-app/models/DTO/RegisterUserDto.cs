@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Async_Inn_app.models.DTO
 {
-    public class RegisterUser
+    public class RegisterUserDto
     {
         [Required]
         public string Username { get; set; }
@@ -14,7 +14,6 @@ namespace Async_Inn_app.models.DTO
         [Required]
         public string Password { get; set; }
 
-        [Required]
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }

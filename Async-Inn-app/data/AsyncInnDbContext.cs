@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Async_Inn_app.data
 {
-    public class AsyncInnDbContext : IdentityDbContext<Users>
+    public class AsyncInnDbContext : IdentityDbContext<ApplicationUser>
     {
 
        public DbSet<Amenities> Amenities { get; set; }
