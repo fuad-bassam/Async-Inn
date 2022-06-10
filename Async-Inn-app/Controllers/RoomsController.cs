@@ -9,11 +9,14 @@ using Async_Inn_app.data;
 using Async_Inn_app.models;
 using Async_Inn_app.models.Interfaces;
 using Async_Inn_app.models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Async_Inn_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "DistrictManager")]
+
     public class RoomsController : ControllerBase
     {
 
@@ -26,6 +29,7 @@ namespace Async_Inn_app.Controllers
 
         // POST: api/Rooms
         [HttpPost]
+
         public async Task<ActionResult<RoomsDto>> PostRooms(RoomsDto rooms)
         {
             RoomsDto roomsDto = await _rooms.Create(rooms);
@@ -33,6 +37,8 @@ namespace Async_Inn_app.Controllers
         }
         // GET: api/Rooms
         [HttpGet]
+        [AllowAnonymous]
+        // [Authorize(Roles = "PropertyManager, DistrictManager")]
         public async Task<ActionResult<IEnumerable<RoomsDto>>> GetRooms()
         {
             var rooms = await _rooms.GetRooms();
@@ -41,6 +47,8 @@ namespace Async_Inn_app.Controllers
 
         // GET: api/Rooms/1/101
         [HttpGet("{hotelId}/{roomId}")]
+        // [Authorize(Roles = "PropertyManager, DistrictManager")]
+        [AllowAnonymous]
         public async Task<ActionResult<RoomsDto>> GetRooms(int hotelId, int roomId)
         {
 
@@ -51,6 +59,8 @@ namespace Async_Inn_app.Controllers
 
         // PUT: api/Rooms/1/101
         [HttpPut("{hotelId}/{roomId}")]
+        [Authorize(Roles = "PropertyManager, DistrictManager")]
+
         public async Task<IActionResult> PutRooms(int hotelId, int roomId, Rooms rooms)
         {
 
@@ -62,6 +72,7 @@ namespace Async_Inn_app.Controllers
 
         // DELETE: api/Rooms/1/101
         [HttpDelete("{hotelId}/{roomId}")]
+
         public async Task<IActionResult> DeleteRooms(int hotelId, int roomId)
         {
 
@@ -84,6 +95,9 @@ namespace Async_Inn_app.Controllers
         // GET: api/Rooms/1/101/Amenity/31
         [HttpPost]
         [Route("{hotelId}/{roomId}/Amenity/{amenityId}")]
+        [Authorize(Roles = "PropertyManager, DistrictManager , Agent")]
+
+
         public async Task<ActionResult<RoomsAmenities>> addRoomsAmenities(RoomsAmenities roomsAmenities)
         {
             RoomsAmenities roomsAmenities11 = await _rooms.AddAmenityToRoom(roomsAmenities);
@@ -93,6 +107,8 @@ namespace Async_Inn_app.Controllers
 
         // DELETE: api/Rooms/2/101/Amenity/11
         [HttpDelete("{hotelId}/{roomId}/Amenity/{amenityId}")]
+        [Authorize(Roles = "PropertyManager, DistrictManager , Agent")]
+
         public async Task<ActionResult> deleteRoomsAmenities(int hotelId, int roomId, int amenityId)
         {
 

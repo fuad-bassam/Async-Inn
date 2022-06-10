@@ -20,7 +20,7 @@ namespace Async_Inn_app.models
         public decimal price { get; set; }
 
 
-        public virtual List<RoomsAmenities> roomsAmenities { get; set; }
+       public virtual List<RoomsAmenities> roomsAmenities { get; set; }
 
     }
 }

@@ -9,11 +9,15 @@ using Async_Inn_app.data;
 using Async_Inn_app.models;
 using Async_Inn_app.models.Interfaces;
 using Async_Inn_app.models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Async_Inn_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "DistrictManager")]
+
+
     public class AmenitiesController : ControllerBase
     {
 
@@ -27,7 +31,6 @@ namespace Async_Inn_app.Controllers
         }
 
 
-
         // POST: api/Amenities
         [HttpPost]
         public async Task<ActionResult<AmenitiesDto>> PostAmenities(AmenitiesDto amenities)
@@ -37,20 +40,20 @@ namespace Async_Inn_app.Controllers
         }
         // GET: api/Amenities
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AmenitiesDto>>> GetAmenities()
         {
             var amenities = await _amenities.GetAmenities();
             return Ok(amenities);
         }
-
         // GET: api/Amenities/21
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<AmenitiesDto>> GetAmenities(int id)
         {
             AmenitiesDto amenitiesDto = await _amenities.GetAmenitie(id);
             return Ok(amenitiesDto);
         }
-
         // PUT: api/Amenities/21
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAmenities(int id, Amenities amenities)
