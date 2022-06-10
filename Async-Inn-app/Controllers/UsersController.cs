@@ -1,6 +1,7 @@
 ﻿using Async_Inn_app.models;
 using Async_Inn_app.models.DTO;
 using Async_Inn_app.models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,8 @@ namespace Async_Inn_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = "DistrictManager")]
+
     public class UsersController : ControllerBase
     {
 
@@ -24,6 +27,7 @@ namespace Async_Inn_app.Controllers
         }
 
         [HttpPost("register")]
+      //  [Authorize(Roles = "PropertyManager")]
         public async Task<ActionResult<UserDto>> Register(RegisterUserDto data)
         {
 
@@ -32,16 +36,15 @@ namespace Async_Inn_app.Controllers
             if (ModelState.IsValid)
             {
                 return Ok(userDto);
-
             }
             return BadRequest(new ValidationProblemDetails(ModelState));
-
             }
             catch (Exception e)
             { return BadRequest(e.Message); }
         }
 
         [HttpPost("Login")]
+        [AllowAnonymous]
         public async Task<ActionResult<UserDto>> Login(RegisterUserDto user)
         {
             UserDto userDto = await _user.Authenticate(user.Username, user.Password);

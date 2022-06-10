@@ -9,6 +9,8 @@ namespace Async_Inn_app.models.DTO
     {
         public string Id { get; set; }
         public string Username { get; set; }
+        public string Token { get; set; }
+
     }
     
 }

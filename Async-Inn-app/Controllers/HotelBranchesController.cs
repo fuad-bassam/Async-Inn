@@ -9,11 +9,14 @@ using Async_Inn_app.data;
 using Async_Inn_app.models;
 using Async_Inn_app.models.Interfaces;
 using Async_Inn_app.models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Async_Inn_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "DistrictManager ")]
+
     public class HotelBranchesController : ControllerBase
     {
         private readonly IHotelBranches _hotel;
@@ -24,7 +27,6 @@ namespace Async_Inn_app.Controllers
         }
 
         // POST: api/HotelBranches
-
         [HttpPost]
         public async Task<ActionResult<HotelBranchesDTO>> PostHotelBranches(HotelBranchesDTO hotelBranchesDTO)
         {
@@ -33,7 +35,10 @@ namespace Async_Inn_app.Controllers
         }
 
         // GET: api/HotelBranches
+
         [HttpGet]
+        [AllowAnonymous]
+        //[Authorize(Roles = "PropertyManager, DistrictManager , Agent")]
         public async Task<ActionResult<IEnumerable<HotelBranches>>> GetHotelBranches()
         {
             var hotels = await _hotel.GetHotels();
@@ -42,6 +47,8 @@ namespace Async_Inn_app.Controllers
 
         // GET: api/HotelBranches/1
         [HttpGet("{id}")]
+        // [Authorize(Roles = "PropertyManager, DistrictManager , Agent")]
+        [AllowAnonymous]
         public async Task<ActionResult<HotelBranchesDTO>> GetHotelBranches(int id)
         {
             HotelBranchesDTO hotelDTO = await _hotel.GetHotel(id);
@@ -49,8 +56,10 @@ namespace Async_Inn_app.Controllers
         }
 
         // PUT: api/HotelBranches/2
-       
+        // "Agent"
         [HttpPut("{id}")]
+        [Authorize(Roles = "PropertyManager, DistrictManager ")]
+
         public async Task<IActionResult> PutHotelBranches(int id, HotelBranchesDTO hotelBranchesDTO)
         {
             if (id != hotelBranchesDTO.hotelId)

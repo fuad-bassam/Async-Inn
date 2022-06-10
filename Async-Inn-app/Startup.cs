@@ -2,6 +2,7 @@ using Async_Inn_app.data;
 using Async_Inn_app.models;
 using Async_Inn_app.models.Interfaces;
 using Async_Inn_app.models.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +41,9 @@ namespace Async_Inn_app
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+
+            services.AddScoped<JwtTokenService>();
+
             services.AddScoped < IHotelBranches, HotelBranchesService>();
 
             services.AddScoped<IAmenities, AmenitiesService>();
@@ -54,6 +58,19 @@ namespace Async_Inn_app
                             .AddEntityFrameworkStores<AsyncInnDbContext>();
 
             services.AddTransient<IUserService, IdentityUserService>();
+            // Add the wiring for adding "Authentication" for our API
+            // "We want the system to always use these "Schemes" to authenticate us
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+              .AddJwtBearer(options =>
+              {
+          // Tell the authenticaion scheme "how/where" to validate the token + secret
+             options.TokenValidationParameters = JwtTokenService.GetValidationParameters(Configuration);
+              });
 
 
             services.AddControllers().AddNewtonsoftJson(
@@ -76,8 +93,9 @@ namespace Async_Inn_app
             }
 
             app.UseRouting();
+           
             app.UseAuthentication();
-
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

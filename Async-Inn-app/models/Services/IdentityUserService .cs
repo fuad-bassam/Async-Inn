@@ -12,10 +12,12 @@ namespace Async_Inn_app.models.Services
     public class IdentityUserService : IUserService
     {
         private UserManager<ApplicationUser> _userManager;
-
-        public IdentityUserService(UserManager<ApplicationUser> userManager)
+        private JwtTokenService tokenService;
+        
+        public IdentityUserService(UserManager<ApplicationUser> userManager , JwtTokenService jwtTokenService)
         {
             _userManager = userManager;
+            tokenService = jwtTokenService;
         }
 
 
@@ -30,14 +32,21 @@ namespace Async_Inn_app.models.Services
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-            if (result.Succeeded)
+            if (result.Succeeded)   
             {
+                List<string> Roles = new List<string>();
+                Roles.Add("DistrictManager");
+                Roles.Add("PropertyManager");
+                Roles.Add("Agent");
+                
+                await _userManager.AddToRolesAsync(user, Roles);
 
                 var userDto = new UserDto
                 {
                     Username = user.UserName,
                     Id = user.Id,
-                
+                    Token = await tokenService.GetToken(user, System.TimeSpan.FromDays(15))
+
                 };
                 return userDto;
             }
@@ -59,6 +68,7 @@ namespace Async_Inn_app.models.Services
         public async Task<UserDto> Authenticate(string username, string password)
         { 
             var user = await _userManager.FindByNameAsync(username);
+           
             if (user != null)
             {
                 if (await _userManager.CheckPasswordAsync(user, password))
@@ -66,7 +76,8 @@ namespace Async_Inn_app.models.Services
                     var userDto = new UserDto
                     {
                         Username = user.UserName,
-                        Id = user.Id,     
+                        Id = user.Id,
+                        Token = await tokenService.GetToken(user, System.TimeSpan.FromMinutes(15))
                     };
                     return userDto;
                 }}
@@ -74,6 +85,13 @@ namespace Async_Inn_app.models.Services
             //return  (user and password not matching)
             return null;
         }
+
+        //public async Task<UserDto> login(RegisterUserDto registerDto, ModelStateDictionary modelstate)
+        //{
+            
+        //    return 
+        //}
+
     }
-    
+
 }

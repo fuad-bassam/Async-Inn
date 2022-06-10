@@ -1,4 +1,5 @@
 ﻿using Async_Inn_app.models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -71,10 +72,10 @@ namespace Async_Inn_app.data
 
 
             modelBuilder.Entity<Rooms>().HasData(
-             new Rooms { hotelId = 1, roomId = 101, nickName = "Restful Rainier", space = 2,PetFriendly = true , price = 29.9m },
-             new Rooms { hotelId = 1, roomId = 102, nickName = "Seahawks Snooze", PetFriendly = false , space = 2, price = 45 },
+             new Rooms { hotelId = 1, roomId = 101, nickName = "Restful Rainier", space = 2, PetFriendly = true, price = 29.9m },
+             new Rooms { hotelId = 1, roomId = 102, nickName = "Seahawks Snooze", PetFriendly = false, space = 2, price = 45 },
 
-             new Rooms { hotelId = 2, roomId = 101, nickName = "Golden hat", PetFriendly = true  ,space = 3, price = 75 }
+             new Rooms { hotelId = 2, roomId = 101, nickName = "Golden hat", PetFriendly = true, space = 3, price = 75 }
            );
 
 
@@ -91,15 +92,30 @@ namespace Async_Inn_app.data
 
             modelBuilder.Entity<RoomsAmenities>().HasData(
             new RoomsAmenities { amenitiesId = 11, hotelId = 1, roomId = 101, canRemove = true },
-            new RoomsAmenities { amenitiesId = 11, hotelId = 2, roomId = 101 , canRemove = false },
-            new RoomsAmenities { amenitiesId = 21, hotelId = 1, roomId = 101 , canRemove = false },
-               new RoomsAmenities { amenitiesId = 22, hotelId = 1, roomId = 102 ,canRemove = true },
-                  new RoomsAmenities { amenitiesId = 23, hotelId = 1, roomId = 102, canRemove = false }
+            new RoomsAmenities { amenitiesId = 11, hotelId = 2, roomId = 101, canRemove = false },
+            new RoomsAmenities { amenitiesId = 21, hotelId = 1, roomId = 101, canRemove = false },
+            new RoomsAmenities { amenitiesId = 22, hotelId = 1, roomId = 102, canRemove = true },
+            new RoomsAmenities { amenitiesId = 23, hotelId = 1, roomId = 102, canRemove = false }
        );
 
-          
 
-        }
+            SeedRole(modelBuilder, "DistrictManager");
+            SeedRole(modelBuilder, "PropertyManager");
+            SeedRole(modelBuilder, "Agent");
+        } 
+            private void SeedRole(ModelBuilder modelBuilder, string roleName)
+            {
+                var role = new IdentityRole
+                {
+                    Id = roleName.ToLower(),
+                    Name = roleName,
+                    NormalizedName = roleName.ToUpper(),
+                    ConcurrencyStamp = Guid.Empty.ToString()
+                };
+                modelBuilder.Entity<IdentityRole>().HasData(role);
+            }
+
+        
 
     }
 }
